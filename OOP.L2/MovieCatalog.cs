@@ -30,6 +30,11 @@ public class MovieCatalog
         }
     }
 
+    public List<Movie> GetMovies()
+    {
+        return movies;
+    }
+
     public void FindMovie()
     {
 

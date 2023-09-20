@@ -1,12 +1,18 @@
-﻿using System.Drawing.Imaging;
-
-namespace OOP.L2;
+﻿namespace OOP.L2;
 public class Movie
 {
     private string title;
     private MovieGenre genre;
     private string country;
     private int raiting;
+
+    public Movie(string title, MovieGenre genre, string country, int raiting)
+    {
+        this.title = title;
+        this.genre = genre;
+        this.country = country;
+        this.raiting = raiting;
+    }
 
     public void SetTitle(string title)
     {
@@ -46,5 +52,14 @@ public class Movie
     public int GetRaiting()
     {
         return raiting;
+    }
+
+    public override string ToString()
+    {
+        return $"" +
+            $"Название: {title}, " +
+            $"жанр: {genre}, " +
+            $"страна: {country}, " +
+            $"рейтинг: {raiting}";
     }
 }
