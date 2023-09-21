@@ -45,6 +45,12 @@ partial class MovieCatalogForm
         label7 = new Label();
         SortMoviesButton = new Button();
         countryComboBox = new ComboBox();
+        searchResultsRichTextBox = new RichTextBox();
+        label8 = new Label();
+        searchTitleTextBox = new TextBox();
+        label9 = new Label();
+        label10 = new Label();
+        SearchMovieButton = new Button();
         ((System.ComponentModel.ISupportInitialize)RaitingTrackBar).BeginInit();
         SuspendLayout();
         // 
@@ -104,9 +110,9 @@ partial class MovieCatalogForm
         // 
         AddMovieButton.Location = new Point(82, 205);
         AddMovieButton.Name = "AddMovieButton";
-        AddMovieButton.Size = new Size(135, 23);
+        AddMovieButton.Size = new Size(104, 23);
         AddMovieButton.TabIndex = 5;
-        AddMovieButton.Text = "Добавить кинофильм";
+        AddMovieButton.Text = "Добавить";
         AddMovieButton.UseVisualStyleBackColor = true;
         AddMovieButton.Click += AddMovieButton_Click;
         // 
@@ -171,7 +177,7 @@ partial class MovieCatalogForm
         // 
         sortComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
         sortComboBox.FormattingEnabled = true;
-        sortComboBox.Location = new Point(180, 317);
+        sortComboBox.Location = new Point(545, 206);
         sortComboBox.Name = "sortComboBox";
         sortComboBox.Size = new Size(121, 23);
         sortComboBox.TabIndex = 81;
@@ -179,7 +185,7 @@ partial class MovieCatalogForm
         // label7
         // 
         label7.AutoSize = true;
-        label7.Location = new Point(76, 320);
+        label7.Location = new Point(441, 209);
         label7.Name = "label7";
         label7.Size = new Size(98, 15);
         label7.TabIndex = 82;
@@ -187,7 +193,7 @@ partial class MovieCatalogForm
         // 
         // SortMoviesButton
         // 
-        SortMoviesButton.Location = new Point(180, 346);
+        SortMoviesButton.Location = new Point(545, 235);
         SortMoviesButton.Name = "SortMoviesButton";
         SortMoviesButton.Size = new Size(97, 23);
         SortMoviesButton.TabIndex = 83;
@@ -204,11 +210,71 @@ partial class MovieCatalogForm
         countryComboBox.Size = new Size(145, 23);
         countryComboBox.TabIndex = 3;
         // 
+        // searchResultsRichTextBox
+        // 
+        searchResultsRichTextBox.Location = new Point(269, 279);
+        searchResultsRichTextBox.Name = "searchResultsRichTextBox";
+        searchResultsRichTextBox.ReadOnly = true;
+        searchResultsRichTextBox.Size = new Size(364, 86);
+        searchResultsRichTextBox.TabIndex = 84;
+        searchResultsRichTextBox.Text = "";
+        // 
+        // label8
+        // 
+        label8.AutoSize = true;
+        label8.Location = new Point(269, 252);
+        label8.Name = "label8";
+        label8.Size = new Size(111, 15);
+        label8.TabIndex = 85;
+        label8.Text = "Результаты поиска";
+        // 
+        // searchTitleTextBox
+        // 
+        searchTitleTextBox.Location = new Point(82, 279);
+        searchTitleTextBox.Name = "searchTitleTextBox";
+        searchTitleTextBox.Size = new Size(145, 23);
+        searchTitleTextBox.TabIndex = 86;
+        // 
+        // label9
+        // 
+        label9.AutoSize = true;
+        label9.Location = new Point(14, 252);
+        label9.Name = "label9";
+        label9.Size = new Size(116, 15);
+        label9.TabIndex = 87;
+        label9.Text = "Поиск кинофильма";
+        // 
+        // label10
+        // 
+        label10.AutoSize = true;
+        label10.Location = new Point(14, 282);
+        label10.Name = "label10";
+        label10.Size = new Size(62, 15);
+        label10.TabIndex = 88;
+        label10.Text = "Название:";
+        // 
+        // SearchMovieButton
+        // 
+        SearchMovieButton.Location = new Point(82, 308);
+        SearchMovieButton.Name = "SearchMovieButton";
+        SearchMovieButton.Size = new Size(104, 23);
+        SearchMovieButton.TabIndex = 89;
+        SearchMovieButton.Text = "Найти";
+        SearchMovieButton.UseVisualStyleBackColor = true;
+        SearchMovieButton.Click += SearchMovieButton_Click;
+        // 
         // MovieCatalogForm
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
+        BackColor = SystemColors.Control;
         ClientSize = new Size(800, 450);
+        Controls.Add(SearchMovieButton);
+        Controls.Add(label10);
+        Controls.Add(label9);
+        Controls.Add(searchTitleTextBox);
+        Controls.Add(label8);
+        Controls.Add(searchResultsRichTextBox);
         Controls.Add(countryComboBox);
         Controls.Add(SortMoviesButton);
         Controls.Add(label7);
@@ -252,4 +318,10 @@ partial class MovieCatalogForm
     private Label label7;
     private Button SortMoviesButton;
     private ComboBox countryComboBox;
+    private RichTextBox searchResultsRichTextBox;
+    private Label label8;
+    private TextBox searchTitleTextBox;
+    private Label label9;
+    private Label label10;
+    private Button SearchMovieButton;
 }

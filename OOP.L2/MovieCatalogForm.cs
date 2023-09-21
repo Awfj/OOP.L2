@@ -62,4 +62,26 @@ public partial class MovieCatalogForm : Form
         movieCatalog.SortMovies(sortComboBox.Text);
         movieCatalog.ShowMovies(moviesRichTextBox);
     }
+
+    private void SearchMovieButton_Click(object sender, EventArgs e)
+    {
+        string title = searchTitleTextBox.Text.Trim();
+        List<Movie> foundMovies = movieCatalog.GetMovies().FindAll(movie => movie.GetTitle() == title);
+
+        if (foundMovies.Count == 0)
+        {
+            MessageBox.Show("Ничего не найдено!");
+            return;
+        }
+
+        foreach (Movie movie in foundMovies)
+        {
+            searchResultsRichTextBox.Text += movie.ToString() + "\n";
+        }
+
+        searchResultsRichTextBox.Text = searchResultsRichTextBox.Text.TrimEnd();
+
+        movieCatalog.ShowMovies(searchResultsRichTextBox, foundMovies);
+    }
+
 }

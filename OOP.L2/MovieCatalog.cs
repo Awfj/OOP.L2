@@ -29,6 +29,17 @@ public class MovieCatalog
         richTextBox.Text = richTextBox.Text.TrimEnd();
     }
 
+    public void ShowMovies(RichTextBox richTextBox, List<Movie> movies)
+    {
+        richTextBox.Text = string.Empty;
+
+        foreach (Movie movie in movies)
+        {
+            richTextBox.Text += movie.ToString() + "\n";
+        }
+        richTextBox.Text = richTextBox.Text.TrimEnd();
+    }
+
     /*public void SetMovies(Movie[] movies)
     {
         this.movies = movies;
