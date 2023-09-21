@@ -34,7 +34,6 @@ partial class MovieCatalogForm
         label4 = new Label();
         titleTextBox = new TextBox();
         label5 = new Label();
-        countryTextBox = new TextBox();
         AddMovieButton = new Button();
         moviesRichTextBox = new RichTextBox();
         ShowMoviesButton = new Button();
@@ -42,6 +41,10 @@ partial class MovieCatalogForm
         raitingTextBox = new TextBox();
         RaitingTrackBar = new TrackBar();
         label6 = new Label();
+        sortComboBox = new ComboBox();
+        label7 = new Label();
+        SortMoviesButton = new Button();
+        countryComboBox = new ComboBox();
         ((System.ComponentModel.ISupportInitialize)RaitingTrackBar).BeginInit();
         SuspendLayout();
         // 
@@ -86,7 +89,7 @@ partial class MovieCatalogForm
         titleTextBox.Location = new Point(82, 47);
         titleTextBox.Name = "titleTextBox";
         titleTextBox.Size = new Size(145, 23);
-        titleTextBox.TabIndex = 3;
+        titleTextBox.TabIndex = 1;
         // 
         // label5
         // 
@@ -97,19 +100,12 @@ partial class MovieCatalogForm
         label5.TabIndex = 0;
         label5.Text = "Название:";
         // 
-        // countryTextBox
-        // 
-        countryTextBox.Location = new Point(82, 117);
-        countryTextBox.Name = "countryTextBox";
-        countryTextBox.Size = new Size(145, 23);
-        countryTextBox.TabIndex = 3;
-        // 
         // AddMovieButton
         // 
-        AddMovieButton.Location = new Point(82, 196);
+        AddMovieButton.Location = new Point(82, 205);
         AddMovieButton.Name = "AddMovieButton";
         AddMovieButton.Size = new Size(135, 23);
-        AddMovieButton.TabIndex = 4;
+        AddMovieButton.TabIndex = 5;
         AddMovieButton.Text = "Добавить кинофильм";
         AddMovieButton.UseVisualStyleBackColor = true;
         AddMovieButton.Click += AddMovieButton_Click;
@@ -118,8 +114,9 @@ partial class MovieCatalogForm
         // 
         moviesRichTextBox.Location = new Point(269, 47);
         moviesRichTextBox.Name = "moviesRichTextBox";
+        moviesRichTextBox.ReadOnly = true;
         moviesRichTextBox.Size = new Size(364, 144);
-        moviesRichTextBox.TabIndex = 5;
+        moviesRichTextBox.TabIndex = 50;
         moviesRichTextBox.Text = "";
         // 
         // ShowMoviesButton
@@ -134,11 +131,12 @@ partial class MovieCatalogForm
         // 
         // genreComboBox
         // 
+        genreComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
         genreComboBox.FormattingEnabled = true;
         genreComboBox.Location = new Point(82, 82);
         genreComboBox.Name = "genreComboBox";
         genreComboBox.Size = new Size(145, 23);
-        genreComboBox.TabIndex = 7;
+        genreComboBox.TabIndex = 2;
         // 
         // raitingTextBox
         // 
@@ -146,7 +144,7 @@ partial class MovieCatalogForm
         raitingTextBox.Name = "raitingTextBox";
         raitingTextBox.ReadOnly = true;
         raitingTextBox.Size = new Size(25, 23);
-        raitingTextBox.TabIndex = 8;
+        raitingTextBox.TabIndex = 80;
         raitingTextBox.Text = "1";
         // 
         // RaitingTrackBar
@@ -156,7 +154,7 @@ partial class MovieCatalogForm
         RaitingTrackBar.Minimum = 1;
         RaitingTrackBar.Name = "RaitingTrackBar";
         RaitingTrackBar.Size = new Size(104, 45);
-        RaitingTrackBar.TabIndex = 9;
+        RaitingTrackBar.TabIndex = 4;
         RaitingTrackBar.Value = 1;
         RaitingTrackBar.ValueChanged += RaitingTrackBar_ValueChanged;
         // 
@@ -169,18 +167,58 @@ partial class MovieCatalogForm
         label6.TabIndex = 0;
         label6.Text = "Кинофильмы";
         // 
+        // sortComboBox
+        // 
+        sortComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+        sortComboBox.FormattingEnabled = true;
+        sortComboBox.Location = new Point(180, 317);
+        sortComboBox.Name = "sortComboBox";
+        sortComboBox.Size = new Size(121, 23);
+        sortComboBox.TabIndex = 81;
+        // 
+        // label7
+        // 
+        label7.AutoSize = true;
+        label7.Location = new Point(76, 320);
+        label7.Name = "label7";
+        label7.Size = new Size(98, 15);
+        label7.TabIndex = 82;
+        label7.Text = "Сортировать по:";
+        // 
+        // SortMoviesButton
+        // 
+        SortMoviesButton.Location = new Point(180, 346);
+        SortMoviesButton.Name = "SortMoviesButton";
+        SortMoviesButton.Size = new Size(97, 23);
+        SortMoviesButton.TabIndex = 83;
+        SortMoviesButton.Text = "Сортировать";
+        SortMoviesButton.UseVisualStyleBackColor = true;
+        SortMoviesButton.Click += SortMoviesButton_Click;
+        // 
+        // countryComboBox
+        // 
+        countryComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+        countryComboBox.FormattingEnabled = true;
+        countryComboBox.Location = new Point(82, 117);
+        countryComboBox.Name = "countryComboBox";
+        countryComboBox.Size = new Size(145, 23);
+        countryComboBox.TabIndex = 3;
+        // 
         // MovieCatalogForm
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(800, 450);
+        Controls.Add(countryComboBox);
+        Controls.Add(SortMoviesButton);
+        Controls.Add(label7);
+        Controls.Add(sortComboBox);
         Controls.Add(RaitingTrackBar);
         Controls.Add(raitingTextBox);
         Controls.Add(genreComboBox);
         Controls.Add(ShowMoviesButton);
         Controls.Add(moviesRichTextBox);
         Controls.Add(AddMovieButton);
-        Controls.Add(countryTextBox);
         Controls.Add(titleTextBox);
         Controls.Add(label4);
         Controls.Add(label3);
@@ -203,7 +241,6 @@ partial class MovieCatalogForm
     private Label label4;
     private TextBox titleTextBox;
     private Label label5;
-    private TextBox countryTextBox;
     private Button AddMovieButton;
     private RichTextBox moviesRichTextBox;
     private Button ShowMoviesButton;
@@ -211,4 +248,8 @@ partial class MovieCatalogForm
     private TextBox raitingTextBox;
     private TrackBar RaitingTrackBar;
     private Label label6;
+    private ComboBox sortComboBox;
+    private Label label7;
+    private Button SortMoviesButton;
+    private ComboBox countryComboBox;
 }

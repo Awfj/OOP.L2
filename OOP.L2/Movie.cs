@@ -1,4 +1,8 @@
-﻿namespace OOP.L2;
+﻿using System.Globalization;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
+
+namespace OOP.L2;
 public class Movie
 {
     private string title;
@@ -58,8 +62,13 @@ public class Movie
     {
         return $"" +
             $"Название: {title}, " +
-            $"жанр: {genre}, " +
-            $"страна: {country}, " +
-            $"рейтинг: {raiting}";
+            $"Жанр: {genre}, " +
+            $"Страна: {country}, " +
+            $"Рейтинг: {raiting}";
+    }
+
+    public static bool IsTitleValid(string title)
+    {
+        return string.IsNullOrWhiteSpace(title) == false;
     }
 }
