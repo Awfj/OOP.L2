@@ -3,8 +3,13 @@ public class MovieCatalog
 {
     private List<Movie> movies = new();
 
-    public void AddMovie(Movie movie)
+    public void AddMovie(
+        string title,
+        MovieGenre genre,
+        Country country,
+        int raiting)
     {
+        Movie movie = new(title, genre, country, raiting);
         movies.Add(movie);
     }
 
@@ -13,9 +18,20 @@ public class MovieCatalog
         movies.Remove(movie);
     }
 
-    public void EditMovie()
+    public void EditMovies(
+        List<Movie> foundMovies, (string, MovieGenre, Country, int) movieData)
     {
+        (
+            string title,
+            MovieGenre genre,
+            Country country,
+            int raiting
+        ) = movieData;
 
+        foreach (Movie movie in foundMovies)
+        {
+            movie.EditMovie(title, genre, country, raiting);
+        }
     }
 
     public void ShowMovies(RichTextBox richTextBox)
@@ -40,19 +56,16 @@ public class MovieCatalog
         richTextBox.Text = richTextBox.Text.TrimEnd();
     }
 
-    /*public void SetMovies(Movie[] movies)
-    {
-        this.movies = movies;
-    }*/
-
     public List<Movie> GetMovies()
     {
         return movies;
     }
 
-    public void FindMovie()
+    public List<Movie> FindMovies(string title)
     {
-
+        return movies.FindAll(
+            movie => movie.GetTitle() == title
+        );
     }
 
     public void SortMovies(string attribute)

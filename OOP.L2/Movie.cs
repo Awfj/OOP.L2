@@ -7,10 +7,10 @@ public class Movie
 {
     private string title;
     private MovieGenre genre;
-    private string country;
+    private Country country;
     private int raiting;
 
-    public Movie(string title, MovieGenre genre, string country, int raiting)
+    public Movie(string title, MovieGenre genre, Country country, int raiting)
     {
         this.title = title;
         this.genre = genre;
@@ -28,7 +28,7 @@ public class Movie
         this.genre = genre;
     }
 
-    public void SetCountry(string country)
+    public void SetCountry(Country country)
     {
         this.country = country;
     }
@@ -48,7 +48,7 @@ public class Movie
         return genre;
     }
 
-    public string GetCountry()
+    public Country GetCountry()
     {
         return country;
     }
@@ -56,6 +56,18 @@ public class Movie
     public int GetRaiting()
     {
         return raiting;
+    }
+
+    public void EditMovie(
+        string title,
+        MovieGenre genre,
+        Country country,
+        int raiting)
+    {
+        SetTitle(title);
+        SetGenre(genre);
+        SetCountry(country);
+        SetRaiting(raiting);
     }
 
     public override string ToString()
