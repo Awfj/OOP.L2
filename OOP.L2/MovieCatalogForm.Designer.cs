@@ -55,6 +55,10 @@ partial class MovieCatalogForm
         addMovieRadioButton = new RadioButton();
         oldMovieTitleLabel = new Label();
         oldMovieTitleЕextBox = new TextBox();
+        label1 = new Label();
+        label11 = new Label();
+        removeMovieTitleTextBox = new TextBox();
+        RemoveMovieButton = new Button();
         ((System.ComponentModel.ISupportInitialize)RaitingTrackBar).BeginInit();
         groupBox1.SuspendLayout();
         SuspendLayout();
@@ -235,9 +239,9 @@ partial class MovieCatalogForm
         label9.AutoSize = true;
         label9.Location = new Point(12, 361);
         label9.Name = "label9";
-        label9.Size = new Size(116, 15);
+        label9.Size = new Size(123, 15);
         label9.TabIndex = 87;
-        label9.Text = "Поиск кинофильма";
+        label9.Text = "Поиск кинофильмов";
         // 
         // label10
         // 
@@ -310,12 +314,51 @@ partial class MovieCatalogForm
         oldMovieTitleЕextBox.TabIndex = 92;
         oldMovieTitleЕextBox.Visible = false;
         // 
+        // label1
+        // 
+        label1.AutoSize = true;
+        label1.Location = new Point(12, 459);
+        label1.Name = "label1";
+        label1.Size = new Size(133, 15);
+        label1.TabIndex = 93;
+        label1.Text = "Удаление кинофильма";
+        // 
+        // label11
+        // 
+        label11.AutoSize = true;
+        label11.Location = new Point(12, 488);
+        label11.Name = "label11";
+        label11.Size = new Size(62, 15);
+        label11.TabIndex = 94;
+        label11.Text = "Название:";
+        // 
+        // removeMovieTitleTextBox
+        // 
+        removeMovieTitleTextBox.Location = new Point(80, 485);
+        removeMovieTitleTextBox.Name = "removeMovieTitleTextBox";
+        removeMovieTitleTextBox.Size = new Size(145, 23);
+        removeMovieTitleTextBox.TabIndex = 95;
+        // 
+        // RemoveMovieButton
+        // 
+        RemoveMovieButton.Location = new Point(80, 514);
+        RemoveMovieButton.Name = "RemoveMovieButton";
+        RemoveMovieButton.Size = new Size(104, 23);
+        RemoveMovieButton.TabIndex = 96;
+        RemoveMovieButton.Text = "Удалить";
+        RemoveMovieButton.UseVisualStyleBackColor = true;
+        RemoveMovieButton.Click += RemoveMovieButton_Click;
+        // 
         // MovieCatalogForm
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = SystemColors.Control;
-        ClientSize = new Size(784, 486);
+        ClientSize = new Size(784, 562);
+        Controls.Add(RemoveMovieButton);
+        Controls.Add(removeMovieTitleTextBox);
+        Controls.Add(label11);
+        Controls.Add(label1);
         Controls.Add(oldMovieTitleЕextBox);
         Controls.Add(oldMovieTitleLabel);
         Controls.Add(groupBox1);
@@ -379,4 +422,8 @@ partial class MovieCatalogForm
     private RadioButton addMovieRadioButton;
     private Label oldMovieTitleLabel;
     private TextBox oldMovieTitleЕextBox;
+    private Label label1;
+    private Label label11;
+    private TextBox removeMovieTitleTextBox;
+    private Button RemoveMovieButton;
 }

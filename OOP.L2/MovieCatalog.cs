@@ -13,9 +13,17 @@ public class MovieCatalog
         movies.Add(movie);
     }
 
-    public void RemoveMovie(Movie movie)
+    public void RemoveMovie(string title)
     {
-        movies.Remove(movie);
+        Movie? foundMovie = movies.Find(
+            movie => movie.GetTitle() == title
+        );
+
+        if (foundMovie == null)
+            return;
+
+        movies.Remove(foundMovie);
+        Movie.GetAvailableIds().Enqueue(foundMovie.GetId());
     }
 
     public void EditMovies(

@@ -161,4 +161,16 @@ public partial class MovieCatalogForm : Form
             movieButton.Click += EditMovieButton_Click;
         }
     }
+
+    private void RemoveMovieButton_Click(object sender, EventArgs e)
+    {
+        string title = removeMovieTitleTextBox.Text.Trim();
+
+        if (IsTitleValid(title) == false)
+            return;
+
+        movieCatalog.RemoveMovie(title);
+        movieCatalog.ShowMovies(moviesRichTextBox);
+        removeMovieTitleTextBox.Text = string.Empty;
+    }
 }

@@ -1,21 +1,34 @@
-﻿using System.Globalization;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
-
-namespace OOP.L2;
+﻿namespace OOP.L2;
 public class Movie
 {
     private string title;
     private MovieGenre genre;
     private Country country;
     private int raiting;
+    private readonly int id;
+    private readonly string name;
+
+    private readonly static Queue<int> availableIds = new();
+    private static int nextId = 1;
 
     public Movie(string title, MovieGenre genre, Country country, int raiting)
     {
+        if (availableIds.Count == 0)
+        {
+            id = nextId;
+            nextId++;
+        }
+        else
+        {
+            id = availableIds.Dequeue();
+        }
+
+
         this.title = title;
         this.genre = genre;
         this.country = country;
         this.raiting = raiting;
+        name = "Movie №" + id;
     }
 
     public void SetTitle(string title)
@@ -36,6 +49,16 @@ public class Movie
     public void SetRaiting(int raiting)
     {
         this.raiting = raiting;
+    }
+
+    public int GetId()
+    {
+        return id;
+    }
+
+    public static Queue<int> GetAvailableIds()
+    {
+        return availableIds;
     }
 
     public string GetTitle()
@@ -72,7 +95,7 @@ public class Movie
 
     public override string ToString()
     {
-        return $"" +
+        return $"Имя: {name}, " +
             $"Название: {title}, " +
             $"Жанр: {genre}, " +
             $"Страна: {country}, " +
