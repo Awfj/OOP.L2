@@ -57,7 +57,7 @@ public class MovieCatalog
             movie.EditMovie(title, genre, country, raiting);
         }
 
-        ShowMessage(foundMovies, "Фильмы изменены");
+        ShowMessage(foundMovies, "Кинофильмы изменены");
     }
 
     public void ShowMovies(RichTextBox richTextBox)
@@ -93,7 +93,7 @@ public class MovieCatalog
             movie => movie.GetTitle() == title
         );
 
-        ShowMessage(foundMovies, "Фильмы удалены");
+        ShowMessage(foundMovies, "Кинофильмы найдены");
 
         return foundMovies;
     }
@@ -133,7 +133,7 @@ public class MovieCatalog
                 break;
         }
 
-        ShowMessage(movies, "Фильмы отсортированы");
+        ShowMessage(movies, "Кинофильмы отсортированы");
     }
 
     public string GetName()
