@@ -88,7 +88,6 @@ public partial class MovieCatalogForm : Form
 
     private void ShowMoviesButton_Click(object sender, EventArgs e)
     {
-
         foreach (Movie movie in movieCatalog.GetMovies())
         {
             moviesRichTextBox.Text += movie.ToString() + "\n";

@@ -23,12 +23,11 @@ public class Movie
             id = availableIds.Dequeue();
         }
 
-
         this.title = title;
         this.genre = genre;
         this.country = country;
         this.raiting = raiting;
-        name = "Movie №" + id;
+        name = $"{GetType().Name} №{id}";
     }
 
     public void SetTitle(string title)
@@ -54,6 +53,11 @@ public class Movie
     public int GetId()
     {
         return id;
+    }
+
+    public string GetName()
+    {
+        return name;
     }
 
     public static Queue<int> GetAvailableIds()

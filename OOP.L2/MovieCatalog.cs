@@ -2,6 +2,18 @@
 public class MovieCatalog
 {
     private List<Movie> movies = new();
+    private int id;
+    private string name;
+
+    private static int nextId = 1;
+
+    public MovieCatalog()
+    {
+        id = nextId;
+        nextId++;
+
+        name = $"{GetType().Name} №{id}";
+    }
 
     public void AddMovie(
         string title,
@@ -11,6 +23,8 @@ public class MovieCatalog
     {
         Movie movie = new(title, genre, country, raiting);
         movies.Add(movie);
+
+        ShowMessage(movie, "Кинофильм добавлен");
     }
 
     public void RemoveMovie(string title)
@@ -24,6 +38,8 @@ public class MovieCatalog
 
         movies.Remove(foundMovie);
         Movie.GetAvailableIds().Enqueue(foundMovie.GetId());
+
+        ShowMessage(foundMovie, "Кинофильм удален");
     }
 
     public void EditMovies(
@@ -40,6 +56,8 @@ public class MovieCatalog
         {
             movie.EditMovie(title, genre, country, raiting);
         }
+
+        ShowMessage(foundMovies, "Фильмы изменены");
     }
 
     public void ShowMovies(RichTextBox richTextBox)
@@ -71,9 +89,28 @@ public class MovieCatalog
 
     public List<Movie> FindMovies(string title)
     {
-        return movies.FindAll(
+        var foundMovies = movies.FindAll(
             movie => movie.GetTitle() == title
         );
+
+        ShowMessage(foundMovies, "Фильмы удалены");
+
+        return foundMovies;
+    }
+
+    private void ShowMessage(Movie movie, string message)
+    {
+        MessageBox.Show($"{message}: {movie.GetName()}");
+    }
+
+    private void ShowMessage(List<Movie> movies, string message = "")
+    {
+        foreach (var movie in movies)
+        {
+            message += movie.GetName() + "\n";
+        }
+
+        MessageBox.Show($"{message}:\n{message}");
     }
 
     public void SortMovies(string attribute)
@@ -93,5 +130,7 @@ public class MovieCatalog
                 movies = movies.OrderBy(movie => movie.GetRaiting()).ToList();
                 break;
         }
+
+        ShowMessage(movies, "Фильмы отсортированы");
     }
 }
