@@ -105,12 +105,14 @@ public class MovieCatalog
 
     private void ShowMessage(List<Movie> movies, string message = "")
     {
+        message += ":\n";
         foreach (var movie in movies)
         {
             message += movie.GetName() + "\n";
         }
+        message = message.TrimEnd();
 
-        MessageBox.Show($"{message}:\n{message}");
+        MessageBox.Show(message);
     }
 
     public void SortMovies(string attribute)
@@ -132,5 +134,10 @@ public class MovieCatalog
         }
 
         ShowMessage(movies, "Фильмы отсортированы");
+    }
+
+    public string GetName()
+    {
+        return name;
     }
 }
