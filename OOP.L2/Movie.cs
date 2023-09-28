@@ -55,6 +55,11 @@ public class Movie
         return id;
     }
 
+    public static int NextId()
+    {
+        return nextId;
+    }
+
     public string GetName()
     {
         return name;

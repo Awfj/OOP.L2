@@ -23,27 +23,10 @@ public class MovieCatalog
     {
         Movie movie = new(title, genre, country, raiting);
         movies.Add(movie);
-
-        ShowMessage(movie, "Кинофильм добавлен");
     }
 
-    public void RemoveMovie(string title)
-    {
-        Movie? foundMovie = movies.Find(
-            movie => movie.GetTitle() == title
-        );
-
-        if (foundMovie == null)
-            return;
-
-        movies.Remove(foundMovie);
-        Movie.GetAvailableIds().Enqueue(foundMovie.GetId());
-
-        ShowMessage(foundMovie, "Кинофильм удален");
-    }
-
-    public void EditMovies(
-        List<Movie> foundMovies, (string, MovieGenre, Country, int) movieData)
+    public void EditMovie(
+        Movie movieToEdit, (string, MovieGenre, Country, int) movieData)
     {
         (
             string title,
@@ -52,12 +35,22 @@ public class MovieCatalog
             int raiting
         ) = movieData;
 
-        foreach (Movie movie in foundMovies)
-        {
-            movie.EditMovie(title, genre, country, raiting);
-        }
+        movieToEdit.EditMovie(title, genre, country, raiting);
+    }
 
-        ShowMessage(foundMovies, "Кинофильмы изменены");
+    public Movie? RemoveMovie(string title)
+    {
+        Movie? movieToRemove = movies.Find(
+            movie => movie.GetTitle() == title
+        );
+
+        if (movieToRemove == null)
+            return null;
+
+        movies.Remove(movieToRemove);
+        Movie.GetAvailableIds().Enqueue(movieToRemove.GetId());
+
+        return movieToRemove;
     }
 
     public void ShowMovies(RichTextBox richTextBox)
@@ -87,7 +80,16 @@ public class MovieCatalog
         return movies;
     }
 
-    public List<Movie> FindMovies(string title)
+    public Movie? FindMovie(int id)
+    {
+        Movie? foundMovie = movies.Find(
+            movie => movie.GetId() == id
+        );
+
+        return foundMovie;
+    }
+
+    public List<Movie> FindMovie(string title)
     {
         var foundMovies = movies.FindAll(
             movie => movie.GetTitle() == title
