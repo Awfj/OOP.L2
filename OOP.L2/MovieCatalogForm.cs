@@ -1,3 +1,5 @@
+using Microsoft.VisualBasic.Devices;
+
 namespace OOP.L2;
 
 public partial class MovieCatalogForm : Form
@@ -14,7 +16,8 @@ public partial class MovieCatalogForm : Form
         countryComboBox.DataSource = Enum.GetValues(typeof(Country));
 
         UpdateEditMovieRadioButton();
-        UpdateMovieIdNumericUpDown();
+        UpdateMovieIdNumericUpDown(movieIdNumericUpDown);
+        UpdateMovieIdNumericUpDown(movieIdForRemoveNumericUpDown);
         addMovieRadioButton.Enabled = false;
     }
 
@@ -59,7 +62,7 @@ public partial class MovieCatalogForm : Form
 
         Movie addedMovie = movieCatalog.GetMovies()[^1];
         UpdateEditMovieRadioButton();
-        UpdateMovieIdNumericUpDown();
+        UpdateMovieIdNumericUpDown(movieIdNumericUpDown);
         ShowMessage(addedMovie, "Кинофильм добавлен");
     }
 
@@ -95,15 +98,15 @@ public partial class MovieCatalogForm : Form
         string errorMessage = "Не удалось удалить кинофильм";
         string successMessage = "Кинофильм удален";
 
-        string title = removeMovieTitleTextBox.Text.Trim();
+        Movie? movie = FindMovieForAction(movieIdForRemoveNumericUpDown);
 
-        if (IsTitleValid(title, false) == false)
+        if (movie == null)
         {
             MessageBox.Show(errorMessage);
             return;
         }
 
-        Movie? removedMovie = movieCatalog.RemoveMovie(title);
+        Movie? removedMovie = movieCatalog.RemoveMovie(movie.GetId());
 
         if (removedMovie == null)
         {
@@ -112,7 +115,8 @@ public partial class MovieCatalogForm : Form
         }
 
         movieCatalog.ShowMovies(moviesRichTextBox);
-        removeMovieTitleTextBox.Text = string.Empty;
+        UpdateMovieIdNumericUpDown(movieIdForRemoveNumericUpDown);
+        movieIdForRemoveNumericUpDown.Value = movieIdForRemoveNumericUpDown.Minimum;
         ShowMessage(removedMovie, successMessage);
         DisableInputFields();
         ClearInputFields();
@@ -225,13 +229,13 @@ public partial class MovieCatalogForm : Form
         MessageBox.Show(message);
     }
 
-    private void UpdateMovieIdNumericUpDown()
+    private void UpdateMovieIdNumericUpDown(NumericUpDown movieIdElement)
     {
-        movieIdNumericUpDown.Maximum = Movie.NextId() - 1;
+        movieIdElement.Maximum = Movie.NextId() - 1;
 
-        if (movieIdNumericUpDown.Maximum != 0
-            && movieIdNumericUpDown.Minimum != 1)
-            movieIdNumericUpDown.Minimum = 1;
+        if (movieIdElement.Maximum != 0
+            && movieIdElement.Minimum != 1)
+            movieIdElement.Minimum = 1;
     }
 
     private void UpdateEditMovieRadioButton()
@@ -262,13 +266,20 @@ public partial class MovieCatalogForm : Form
         raitingTrackBar.Value = raiting;
     }
 
+    private Movie? FindMovieForAction(NumericUpDown movieIdElement)
+    {
+        int movieId = (int)movieIdElement.Value;
+        Movie? movie = movieCatalog.FindMovie(movieId);
+
+        return movie;
+    }
+
     private void FindMovieToEditButton_Click(object sender, EventArgs e)
     {
         string errorMessage = "Не найден кинофильм для изменения";
         string successMessage = "Найден кинофильм для изменения";
 
-        int movieId = (int)movieIdNumericUpDown.Value;
-        Movie? movie = movieCatalog.FindMovie(movieId);
+        Movie? movie = FindMovieForAction(movieIdNumericUpDown);
 
         if (movie == null)
         {

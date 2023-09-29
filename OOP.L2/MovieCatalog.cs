@@ -38,10 +38,10 @@ public class MovieCatalog
         movieToEdit.EditMovie(title, genre, country, raiting);
     }
 
-    public Movie? RemoveMovie(string title)
+    public Movie? RemoveMovie(int id)
     {
         Movie? movieToRemove = movies.Find(
-            movie => movie.GetTitle() == title
+            movie => movie.GetId() == id
         );
 
         if (movieToRemove == null)

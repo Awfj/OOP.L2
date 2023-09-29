@@ -56,14 +56,15 @@ partial class MovieCatalogForm
         oldMovieTitleLabel = new Label();
         label1 = new Label();
         label11 = new Label();
-        removeMovieTitleTextBox = new TextBox();
         RemoveMovieButton = new Button();
         movieIdNumericUpDown = new NumericUpDown();
         label12 = new Label();
         findMovieToEditButton = new Button();
+        movieIdForRemoveNumericUpDown = new NumericUpDown();
         ((System.ComponentModel.ISupportInitialize)raitingTrackBar).BeginInit();
         groupBox1.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)movieIdNumericUpDown).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)movieIdForRemoveNumericUpDown).BeginInit();
         SuspendLayout();
         // 
         // movieLabel
@@ -324,18 +325,11 @@ partial class MovieCatalogForm
         // label11
         // 
         label11.AutoSize = true;
-        label11.Location = new Point(12, 488);
+        label11.Location = new Point(54, 488);
         label11.Name = "label11";
-        label11.Size = new Size(62, 15);
+        label11.Size = new Size(20, 15);
         label11.TabIndex = 94;
-        label11.Text = "Название:";
-        // 
-        // removeMovieTitleTextBox
-        // 
-        removeMovieTitleTextBox.Location = new Point(80, 485);
-        removeMovieTitleTextBox.Name = "removeMovieTitleTextBox";
-        removeMovieTitleTextBox.Size = new Size(145, 23);
-        removeMovieTitleTextBox.TabIndex = 95;
+        label11.Text = "Id:";
         // 
         // RemoveMovieButton
         // 
@@ -376,17 +370,26 @@ partial class MovieCatalogForm
         findMovieToEditButton.Visible = false;
         findMovieToEditButton.Click += FindMovieToEditButton_Click;
         // 
+        // movieIdForRemoveNumericUpDown
+        // 
+        movieIdForRemoveNumericUpDown.Location = new Point(80, 486);
+        movieIdForRemoveNumericUpDown.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+        movieIdForRemoveNumericUpDown.Name = "movieIdForRemoveNumericUpDown";
+        movieIdForRemoveNumericUpDown.Size = new Size(49, 23);
+        movieIdForRemoveNumericUpDown.TabIndex = 100;
+        movieIdForRemoveNumericUpDown.Value = new decimal(new int[] { 1, 0, 0, 0 });
+        // 
         // MovieCatalogForm
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = SystemColors.Control;
         ClientSize = new Size(784, 562);
+        Controls.Add(movieIdForRemoveNumericUpDown);
         Controls.Add(findMovieToEditButton);
         Controls.Add(label12);
         Controls.Add(movieIdNumericUpDown);
         Controls.Add(RemoveMovieButton);
-        Controls.Add(removeMovieTitleTextBox);
         Controls.Add(label11);
         Controls.Add(label1);
         Controls.Add(oldMovieTitleLabel);
@@ -419,6 +422,7 @@ partial class MovieCatalogForm
         groupBox1.ResumeLayout(false);
         groupBox1.PerformLayout();
         ((System.ComponentModel.ISupportInitialize)movieIdNumericUpDown).EndInit();
+        ((System.ComponentModel.ISupportInitialize)movieIdForRemoveNumericUpDown).EndInit();
         ResumeLayout(false);
         PerformLayout();
     }
@@ -453,9 +457,9 @@ partial class MovieCatalogForm
     private Label oldMovieTitleLabel;
     private Label label1;
     private Label label11;
-    private TextBox removeMovieTitleTextBox;
     private Button RemoveMovieButton;
     private NumericUpDown movieIdNumericUpDown;
     private Label label12;
     private Button findMovieToEditButton;
+    private NumericUpDown movieIdForRemoveNumericUpDown;
 }
