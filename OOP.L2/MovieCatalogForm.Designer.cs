@@ -263,7 +263,7 @@ partial class MovieCatalogForm
         SearchMovieButton.TabIndex = 89;
         SearchMovieButton.Text = "Найти";
         SearchMovieButton.UseVisualStyleBackColor = true;
-        SearchMovieButton.Click += SearchMovieButton_Click;
+        SearchMovieButton.Click += FindMovieButton_Click;
         // 
         // groupBox1
         // 

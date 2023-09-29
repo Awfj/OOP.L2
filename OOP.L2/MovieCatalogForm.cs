@@ -119,7 +119,7 @@ public partial class MovieCatalogForm : Form
 
         if (movieCatalog.GetMovies().Count == 0)
         {
-            addMovieRadioButton.PerformClick();
+            EnableAddMovieMode(false);
         }
     }
 
@@ -150,9 +150,10 @@ public partial class MovieCatalogForm : Form
     {
         movieCatalog.SortMovies(sortComboBox.Text);
         movieCatalog.ShowMovies(moviesRichTextBox);
+        ShowMessage(movieCatalog.GetMovies(), "Кинофильмы отсортированы");
     }
 
-    private void SearchMovieButton_Click(object sender, EventArgs e)
+    private void FindMovieButton_Click(object sender, EventArgs e)
     {
         string title = searchTitleTextBox.Text.Trim();
         List<Movie> foundMovies = movieCatalog.FindMovie(title);
@@ -171,6 +172,8 @@ public partial class MovieCatalogForm : Form
         searchResultsRichTextBox.Text = searchResultsRichTextBox.Text.TrimEnd();
 
         movieCatalog.ShowMovies(searchResultsRichTextBox, foundMovies);
+        SearchMovieButton.Text = string.Empty;
+        ShowMessage(foundMovies, "Кинофильмы найдены");
     }
 
     private void MovieRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -274,12 +277,6 @@ public partial class MovieCatalogForm : Form
             return;
         }
 
-        /*if (!movies.Any(movie =>
-        {
-            movieToEdit = movie;
-            return movie.GetId() == movieId;
-        }))*/
-
         EnableInputFields();
 
         UpdateEditFields(
@@ -314,15 +311,26 @@ public partial class MovieCatalogForm : Form
 
     private void EditMovieRadioButton_Click(object sender, EventArgs e)
     {
-        addMovieRadioButton.Enabled = true;
-        editMovieRadioButton.Enabled = false;
-        DisableInputFields();
+        EnableEditMovieMode();
     }
 
     private void AddMovieRadioButton_Click(object sender, EventArgs e)
     {
+        EnableAddMovieMode();
+    }
+
+    private void EnableAddMovieMode(bool enableEditRadioButton = true)
+    {
         addMovieRadioButton.Enabled = false;
-        editMovieRadioButton.Enabled = true;
+        editMovieRadioButton.Enabled = enableEditRadioButton;
+
         EnableInputFields();
+    }
+
+    private void EnableEditMovieMode()
+    {
+        addMovieRadioButton.Enabled = true;
+        editMovieRadioButton.Enabled = false;
+        DisableInputFields();
     }
 }

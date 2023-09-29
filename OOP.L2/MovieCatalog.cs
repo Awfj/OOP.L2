@@ -95,8 +95,6 @@ public class MovieCatalog
             movie => movie.GetTitle() == title
         );
 
-        ShowMessage(foundMovies, "Кинофильмы найдены");
-
         return foundMovies;
     }
 
@@ -134,8 +132,6 @@ public class MovieCatalog
                 movies = movies.OrderBy(movie => movie.GetRaiting()).ToList();
                 break;
         }
-
-        ShowMessage(movies, "Кинофильмы отсортированы");
     }
 
     public string GetName()
