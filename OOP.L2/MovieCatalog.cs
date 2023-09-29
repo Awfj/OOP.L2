@@ -98,23 +98,6 @@ public class MovieCatalog
         return foundMovies;
     }
 
-    private void ShowMessage(Movie movie, string message)
-    {
-        MessageBox.Show($"{message}: {movie.GetName()}");
-    }
-
-    private void ShowMessage(List<Movie> movies, string message = "")
-    {
-        message += ":\n";
-        foreach (var movie in movies)
-        {
-            message += movie.GetName() + "\n";
-        }
-        message = message.TrimEnd();
-
-        MessageBox.Show(message);
-    }
-
     public void SortMovies(string attribute)
     {
         switch (attribute)
