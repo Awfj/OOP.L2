@@ -40,6 +40,7 @@ public partial class MovieCatalogForm : Form
         Movie addedMovie = movieCatalog.GetMovies()[^1];
         UpdateEditMovieRadioButton();
         UpdateMovieIdNumericUpDown(movieIdNumericUpDown);
+        UpdateMovieIdNumericUpDown(movieIdForRemoveNumericUpDown);
         ShowMessage(addedMovie, "Кинофильм добавлен");
     }
 
@@ -92,6 +93,7 @@ public partial class MovieCatalogForm : Form
         }
 
         movieCatalog.ShowMovies(moviesRichTextBox);
+        UpdateMovieIdNumericUpDown(movieIdNumericUpDown);
         UpdateMovieIdNumericUpDown(movieIdForRemoveNumericUpDown);
         movieIdForRemoveNumericUpDown.Value = movieIdForRemoveNumericUpDown.Minimum;
         ShowMessage(removedMovie, successMessage);
@@ -266,6 +268,18 @@ public partial class MovieCatalogForm : Form
         if (movieIdElement.Maximum != 0
             && movieIdElement.Minimum != 1)
             movieIdElement.Minimum = 1;
+
+        if (movieCatalog.GetMovies().Count == 0)
+        {
+            removeMovieButton.Enabled = false;
+            movieIdElement.Enabled = false;
+            EnableAddMovieMode();
+        }
+        else
+        {
+            removeMovieButton.Enabled = true;
+            movieIdElement.Enabled = true;
+        }
     }
 
     private void UpdateEditMovieRadioButton()
@@ -326,6 +340,7 @@ public partial class MovieCatalogForm : Form
 
     private void EnableAddMovieMode(bool enableEditRadioButton = true)
     {
+        addMovieRadioButton.Checked = true;
         addMovieRadioButton.Enabled = false;
         editMovieRadioButton.Enabled = enableEditRadioButton;
 
@@ -334,18 +349,9 @@ public partial class MovieCatalogForm : Form
 
     private void EnableEditMovieMode()
     {
+        editMovieRadioButton.Checked = true;
         addMovieRadioButton.Enabled = true;
         editMovieRadioButton.Enabled = false;
         DisableInputFields();
     }
-
-    /*    private void ShowMoviesButton_Click(object sender, EventArgs e)
-    {
-        foreach (Movie movie in movieCatalog.GetMovies())
-        {
-            moviesRichTextBox.Text += movie.ToString() + "\n";
-        }
-
-        moviesRichTextBox.Text = moviesRichTextBox.Text.TrimEnd();
-    }*/
 }

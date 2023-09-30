@@ -56,7 +56,7 @@ partial class MovieCatalogForm
         oldMovieTitleLabel = new Label();
         label1 = new Label();
         label11 = new Label();
-        RemoveMovieButton = new Button();
+        removeMovieButton = new Button();
         movieIdNumericUpDown = new NumericUpDown();
         label12 = new Label();
         findMovieToEditButton = new Button();
@@ -333,15 +333,15 @@ partial class MovieCatalogForm
         label11.TabIndex = 94;
         label11.Text = "Id:";
         // 
-        // RemoveMovieButton
+        // removeMovieButton
         // 
-        RemoveMovieButton.Location = new Point(137, 515);
-        RemoveMovieButton.Name = "RemoveMovieButton";
-        RemoveMovieButton.Size = new Size(104, 23);
-        RemoveMovieButton.TabIndex = 96;
-        RemoveMovieButton.Text = "Удалить";
-        RemoveMovieButton.UseVisualStyleBackColor = true;
-        RemoveMovieButton.Click += RemoveMovieButton_Click;
+        removeMovieButton.Location = new Point(137, 515);
+        removeMovieButton.Name = "removeMovieButton";
+        removeMovieButton.Size = new Size(104, 23);
+        removeMovieButton.TabIndex = 96;
+        removeMovieButton.Text = "Удалить";
+        removeMovieButton.UseVisualStyleBackColor = true;
+        removeMovieButton.Click += RemoveMovieButton_Click;
         // 
         // movieIdNumericUpDown
         // 
@@ -411,7 +411,7 @@ partial class MovieCatalogForm
         Controls.Add(findMovieToEditButton);
         Controls.Add(label12);
         Controls.Add(movieIdNumericUpDown);
-        Controls.Add(RemoveMovieButton);
+        Controls.Add(removeMovieButton);
         Controls.Add(label11);
         Controls.Add(label1);
         Controls.Add(oldMovieTitleLabel);
@@ -439,7 +439,7 @@ partial class MovieCatalogForm
         Controls.Add(label6);
         Controls.Add(movieLabel);
         Name = "MovieCatalogForm";
-        Text = "Form1";
+        Text = "Movie Catalog";
         ((System.ComponentModel.ISupportInitialize)raitingTrackBar).EndInit();
         groupBox1.ResumeLayout(false);
         groupBox1.PerformLayout();
@@ -479,7 +479,7 @@ partial class MovieCatalogForm
     private Label oldMovieTitleLabel;
     private Label label1;
     private Label label11;
-    private Button RemoveMovieButton;
+    private Button removeMovieButton;
     private NumericUpDown movieIdNumericUpDown;
     private Label label12;
     private Button findMovieToEditButton;
