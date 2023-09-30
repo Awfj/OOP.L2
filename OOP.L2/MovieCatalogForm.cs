@@ -17,7 +17,9 @@ public partial class MovieCatalogForm : Form
         UpdateEditMovieRadioButton();
         UpdateMovieIdNumericUpDown(movieIdNumericUpDown);
         UpdateMovieIdNumericUpDown(movieIdForRemoveNumericUpDown);
+
         addMovieRadioButton.Enabled = false;
+        editMovieRadioButton.Enabled = false;
     }
 
     private void AddMovieButton_Click(object sender, EventArgs e)
@@ -93,11 +95,10 @@ public partial class MovieCatalogForm : Form
         }
 
         movieCatalog.ShowMovies(moviesRichTextBox);
+        ShowMessage(removedMovie, successMessage);
+
         UpdateMovieIdNumericUpDown(movieIdNumericUpDown);
         UpdateMovieIdNumericUpDown(movieIdForRemoveNumericUpDown);
-        movieIdForRemoveNumericUpDown.Value = movieIdForRemoveNumericUpDown.Minimum;
-        ShowMessage(removedMovie, successMessage);
-        DisableInputFields();
         ClearInputFields();
 
         if (movieCatalog.GetMovies().Count == 0)
@@ -352,6 +353,7 @@ public partial class MovieCatalogForm : Form
         editMovieRadioButton.Checked = true;
         addMovieRadioButton.Enabled = true;
         editMovieRadioButton.Enabled = false;
+
         DisableInputFields();
     }
 }
