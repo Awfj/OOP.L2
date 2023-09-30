@@ -89,11 +89,29 @@ public class MovieCatalog
         return foundMovie;
     }
 
-    public List<Movie> FindMovie(string title)
+    public List<Movie> FindMovie(MovieAttribute movieAttribute, string serachValue)
     {
-        var foundMovies = movies.FindAll(
-            movie => movie.GetTitle() == title
-        );
+        List<Movie> foundMovies;
+
+        switch (movieAttribute.ToString())
+        {
+            case "Жанр":
+                foundMovies = movies.FindAll(
+            movie => movie.GetGenre().ToString() == serachValue);
+                break;
+            case "Страна":
+                foundMovies = movies.FindAll(
+            movie => movie.GetCountry().ToString() == serachValue);
+                break;
+            case "Рейтинг":
+                foundMovies = movies.FindAll(
+            movie => movie.GetRaiting().ToString() == serachValue);
+                break;
+            default:
+                foundMovies = movies.FindAll(
+            movie => movie.GetTitle() == serachValue);
+                break;
+        }
 
         return foundMovies;
     }

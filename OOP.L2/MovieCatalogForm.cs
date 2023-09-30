@@ -1,5 +1,3 @@
-using Microsoft.VisualBasic.Devices;
-
 namespace OOP.L2;
 
 public partial class MovieCatalogForm : Form
@@ -13,34 +11,13 @@ public partial class MovieCatalogForm : Form
 
         genreComboBox.DataSource = Enum.GetValues(typeof(MovieGenre));
         sortComboBox.DataSource = Enum.GetValues(typeof(MovieAttribute));
+        searchComboBox.DataSource = Enum.GetValues(typeof(MovieAttribute));
         countryComboBox.DataSource = Enum.GetValues(typeof(Country));
 
         UpdateEditMovieRadioButton();
         UpdateMovieIdNumericUpDown(movieIdNumericUpDown);
         UpdateMovieIdNumericUpDown(movieIdForRemoveNumericUpDown);
         addMovieRadioButton.Enabled = false;
-    }
-
-    private (string, MovieGenre, Country, int) GetInputValues()
-    {
-        string title = titleTextBox.Text.Trim();
-        MovieGenre genre = (MovieGenre)genreComboBox.SelectedItem;
-        Country country = (Country)countryComboBox.SelectedItem;
-        int raiting = raitingTrackBar.Value;
-
-        return (title, genre, country, raiting);
-    }
-
-    private static bool IsTitleValid(string title, bool showMessage = true)
-    {
-        if (string.IsNullOrWhiteSpace(title))
-        {
-            if (showMessage)
-                MessageBox.Show("Заполните поле \"Название!\"");
-
-            return false;
-        }
-        return true;
     }
 
     private void AddMovieButton_Click(object sender, EventArgs e)
@@ -127,44 +104,44 @@ public partial class MovieCatalogForm : Form
         }
     }
 
-    private void RaitingTrackBar_ValueChanged(object sender, EventArgs e)
+    private void FindMovieToEditButton_Click(object sender, EventArgs e)
     {
-        raitingTextBox.Text = raitingTrackBar.Value.ToString();
-    }
+        string errorMessage = "Не найден кинофильм для изменения";
+        string successMessage = "Найден кинофильм для изменения";
 
-    private void ShowMoviesButton_Click(object sender, EventArgs e)
-    {
-        foreach (Movie movie in movieCatalog.GetMovies())
+        Movie? movie = FindMovieForAction(movieIdNumericUpDown);
+
+        if (movie == null)
         {
-            moviesRichTextBox.Text += movie.ToString() + "\n";
+            DisableInputFields();
+            MessageBox.Show(errorMessage);
+            return;
         }
 
-        moviesRichTextBox.Text = moviesRichTextBox.Text.TrimEnd();
-    }
+        EnableInputFields();
 
-    private void ClearInputFields()
-    {
-        titleTextBox.Text = string.Empty;
-        genreComboBox.SelectedIndex = 0;
-        countryComboBox.SelectedIndex = 0;
-        raitingTrackBar.Value = 1;
-    }
+        UpdateEditFields(
+            movie.GetTitle(),
+            movie.GetGenre(),
+            movie.GetCountry(),
+            movie.GetRaiting());
 
-    private void SortMoviesButton_Click(object sender, EventArgs e)
-    {
-        movieCatalog.SortMovies(sortComboBox.Text);
-        movieCatalog.ShowMovies(moviesRichTextBox);
-        ShowMessage(movieCatalog.GetMovies(), "Кинофильмы отсортированы");
+        movieToEdit = movie;
+        MessageBox.Show(successMessage);
     }
 
     private void FindMovieButton_Click(object sender, EventArgs e)
     {
-        string title = searchTitleTextBox.Text.Trim();
-        List<Movie> foundMovies = movieCatalog.FindMovie(title);
+        string searchValue = searchTitleTextBox.Text.Trim();
+        string searchAttribute = searchComboBox.Text;
+
+        Enum.TryParse(searchAttribute, out MovieAttribute movieMttribute);
+        List<Movie> foundMovies = movieCatalog.FindMovie(movieMttribute, searchValue);
 
         if (foundMovies.Count == 0)
         {
-            MessageBox.Show("Ничего не найдено!");
+            searchResultsRichTextBox.Text = string.Empty;
+            MessageBox.Show("Ничего не найдено");
             return;
         }
 
@@ -174,9 +151,10 @@ public partial class MovieCatalogForm : Form
         }
 
         searchResultsRichTextBox.Text = searchResultsRichTextBox.Text.TrimEnd();
+        searchTitleTextBox.Text = string.Empty;
+        searchComboBox.SelectedIndex = 0;
 
         movieCatalog.ShowMovies(searchResultsRichTextBox, foundMovies);
-        SearchMovieButton.Text = string.Empty;
         ShowMessage(foundMovies, "Кинофильмы найдены");
     }
 
@@ -210,6 +188,58 @@ public partial class MovieCatalogForm : Form
 
             movieButton.Click += EditMovieButton_Click;
         }
+    }
+
+    private void SortMoviesButton_Click(object sender, EventArgs e)
+    {
+        movieCatalog.SortMovies(sortComboBox.Text);
+        movieCatalog.ShowMovies(moviesRichTextBox);
+        ShowMessage(movieCatalog.GetMovies(), "Кинофильмы отсортированы");
+    }
+
+    private void RaitingTrackBar_ValueChanged(object sender, EventArgs e)
+    {
+        raitingTextBox.Text = raitingTrackBar.Value.ToString();
+    }
+
+    private void EditMovieRadioButton_Click(object sender, EventArgs e)
+    {
+        EnableEditMovieMode();
+    }
+
+    private void AddMovieRadioButton_Click(object sender, EventArgs e)
+    {
+        EnableAddMovieMode();
+    }
+
+    private (string, MovieGenre, Country, int) GetInputValues()
+    {
+        string title = titleTextBox.Text.Trim();
+        MovieGenre genre = (MovieGenre)genreComboBox.SelectedItem;
+        Country country = (Country)countryComboBox.SelectedItem;
+        int raiting = raitingTrackBar.Value;
+
+        return (title, genre, country, raiting);
+    }
+
+    private static bool IsTitleValid(string title, bool showMessage = true)
+    {
+        if (string.IsNullOrWhiteSpace(title))
+        {
+            if (showMessage)
+                MessageBox.Show("Заполните поле \"Название!\"");
+
+            return false;
+        }
+        return true;
+    }
+
+    private void ClearInputFields()
+    {
+        titleTextBox.Text = string.Empty;
+        genreComboBox.SelectedIndex = 0;
+        countryComboBox.SelectedIndex = 0;
+        raitingTrackBar.Value = 1;
     }
 
     private void ShowMessage(Movie movie, string message)
@@ -274,32 +304,6 @@ public partial class MovieCatalogForm : Form
         return movie;
     }
 
-    private void FindMovieToEditButton_Click(object sender, EventArgs e)
-    {
-        string errorMessage = "Не найден кинофильм для изменения";
-        string successMessage = "Найден кинофильм для изменения";
-
-        Movie? movie = FindMovieForAction(movieIdNumericUpDown);
-
-        if (movie == null)
-        {
-            DisableInputFields();
-            MessageBox.Show(errorMessage);
-            return;
-        }
-
-        EnableInputFields();
-
-        UpdateEditFields(
-            movie.GetTitle(),
-            movie.GetGenre(),
-            movie.GetCountry(),
-            movie.GetRaiting());
-
-        movieToEdit = movie;
-        MessageBox.Show(successMessage);
-    }
-
     private void EnableInputFields()
     {
         titleTextBox.Enabled = true;
@@ -320,16 +324,6 @@ public partial class MovieCatalogForm : Form
         movieButton.Enabled = false;
     }
 
-    private void EditMovieRadioButton_Click(object sender, EventArgs e)
-    {
-        EnableEditMovieMode();
-    }
-
-    private void AddMovieRadioButton_Click(object sender, EventArgs e)
-    {
-        EnableAddMovieMode();
-    }
-
     private void EnableAddMovieMode(bool enableEditRadioButton = true)
     {
         addMovieRadioButton.Enabled = false;
@@ -344,4 +338,14 @@ public partial class MovieCatalogForm : Form
         editMovieRadioButton.Enabled = false;
         DisableInputFields();
     }
+
+    /*    private void ShowMoviesButton_Click(object sender, EventArgs e)
+    {
+        foreach (Movie movie in movieCatalog.GetMovies())
+        {
+            moviesRichTextBox.Text += movie.ToString() + "\n";
+        }
+
+        moviesRichTextBox.Text = moviesRichTextBox.Text.TrimEnd();
+    }*/
 }
