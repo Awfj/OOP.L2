@@ -2,18 +2,6 @@
 public class MovieCatalog
 {
     private List<Movie> movies = new();
-    private int id;
-    private string name;
-
-    private static int nextId = 1;
-
-    public MovieCatalog()
-    {
-        id = nextId;
-        nextId++;
-
-        name = $"{GetType().Name} №{id}";
-    }
 
     public void AddMovie(
         string title,
@@ -35,7 +23,10 @@ public class MovieCatalog
             int raiting
         ) = movieData;
 
-        movieToEdit.EditMovie(title, genre, country, raiting);
+        movieToEdit.SetTitle(title);
+        movieToEdit.SetGenre(genre);
+        movieToEdit.SetCountry(country);
+        movieToEdit.SetRaiting(raiting);
     }
 
     public Movie? RemoveMovie(int id)
@@ -133,10 +124,5 @@ public class MovieCatalog
                 movies = movies.OrderBy(movie => movie.GetRaiting()).ToList();
                 break;
         }
-    }
-
-    public string GetName()
-    {
-        return name;
     }
 }

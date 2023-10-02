@@ -90,18 +90,6 @@ public class Movie
         return raiting;
     }
 
-    public void EditMovie(
-        string title,
-        MovieGenre genre,
-        Country country,
-        int raiting)
-    {
-        SetTitle(title);
-        SetGenre(genre);
-        SetCountry(country);
-        SetRaiting(raiting);
-    }
-
     public override string ToString()
     {
         return $"Имя: {name}, " +
@@ -109,10 +97,5 @@ public class Movie
             $"Жанр: {genre}, " +
             $"Страна: {country}, " +
             $"Рейтинг: {raiting}";
-    }
-
-    public static bool IsTitleValid(string title)
-    {
-        return string.IsNullOrWhiteSpace(title) == false;
     }
 }
