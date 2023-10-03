@@ -165,31 +165,31 @@ public partial class MovieCatalogForm : Form
     {
         if (addMovieRadioButton.Checked)
         {
-            movieButton.Text = "Добавить";
+            addEditMovieButton.Text = "Добавить";
             movieLabel.Text = "Введите информацию о кинофильме";
 
-            oldMovieTitleLabel.Visible = false;
+            movieIdFindLabel.Visible = false;
             movieIdNumericUpDown.Visible = false;
             findMovieToEditButton.Visible = false;
 
-            movieButton.Click -= AddMovieButton_Click;
-            movieButton.Click -= EditMovieButton_Click;
+            addEditMovieButton.Click -= AddMovieButton_Click;
+            addEditMovieButton.Click -= EditMovieButton_Click;
 
-            movieButton.Click += AddMovieButton_Click;
+            addEditMovieButton.Click += AddMovieButton_Click;
         }
         else
         {
-            movieButton.Text = "Изменить";
+            addEditMovieButton.Text = "Изменить";
             movieLabel.Text = "Измените информацию о кинофильме";
 
-            oldMovieTitleLabel.Visible = true;
+            movieIdFindLabel.Visible = true;
             movieIdNumericUpDown.Visible = true;
             findMovieToEditButton.Visible = true;
 
-            movieButton.Click -= AddMovieButton_Click;
-            movieButton.Click -= EditMovieButton_Click;
+            addEditMovieButton.Click -= AddMovieButton_Click;
+            addEditMovieButton.Click -= EditMovieButton_Click;
 
-            movieButton.Click += EditMovieButton_Click;
+            addEditMovieButton.Click += EditMovieButton_Click;
         }
     }
 
@@ -326,7 +326,7 @@ public partial class MovieCatalogForm : Form
         countryComboBox.Enabled = true;
         raitingTrackBar.Enabled = true;
         raitingTextBox.Enabled = true;
-        movieButton.Enabled = true;
+        addEditMovieButton.Enabled = true;
     }
 
     private void DisableInputFields()
@@ -336,7 +336,7 @@ public partial class MovieCatalogForm : Form
         countryComboBox.Enabled = false;
         raitingTrackBar.Enabled = false;
         raitingTextBox.Enabled = false;
-        movieButton.Enabled = false;
+        addEditMovieButton.Enabled = false;
     }
 
     private void EnableAddMovieMode(bool enableEditRadioButton = true)
