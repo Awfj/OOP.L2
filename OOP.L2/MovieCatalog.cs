@@ -1,7 +1,31 @@
 ﻿namespace OOP.L2;
 public class MovieCatalog
 {
-    private List<Movie> movies = new();
+    private IDisplayStrategy displayStrategy;
+    private List<Movie> movies;
+
+    public MovieCatalog(IDisplayStrategy displayStrategy)
+    {
+        this.displayStrategy = displayStrategy;
+        movies = new();
+    }
+
+    public void SetDisplayStrategy(IDisplayStrategy displayStrategy)
+    {
+        this.displayStrategy = displayStrategy;
+    }
+
+    public void ShowMovies(RichTextBox richTextBox)
+    {
+        richTextBox.Text = string.Empty;
+        richTextBox.Text = displayStrategy.Display(movies).TrimEnd();
+    }
+
+    public void ShowMovies(RichTextBox richTextBox, List<Movie> movies)
+    {
+        richTextBox.Text = string.Empty;
+        richTextBox.Text = displayStrategy.Display(movies).TrimEnd();
+    }
 
     public void AddMovie(
         string title,
@@ -42,28 +66,6 @@ public class MovieCatalog
         Movie.GetAvailableIds().Enqueue(movieToRemove.GetId());
 
         return movieToRemove;
-    }
-
-    public void ShowMovies(RichTextBox richTextBox)
-    {
-        richTextBox.Text = string.Empty;
-
-        foreach (Movie movie in movies)
-        {
-            richTextBox.Text += movie.ToString() + "\n";
-        }
-        richTextBox.Text = richTextBox.Text.TrimEnd();
-    }
-
-    public void ShowMovies(RichTextBox richTextBox, List<Movie> movies)
-    {
-        richTextBox.Text = string.Empty;
-
-        foreach (Movie movie in movies)
-        {
-            richTextBox.Text += movie.ToString() + "\n";
-        }
-        richTextBox.Text = richTextBox.Text.TrimEnd();
     }
 
     public List<Movie> GetMovies()

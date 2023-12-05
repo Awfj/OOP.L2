@@ -2,7 +2,14 @@ namespace OOP.L2;
 
 public partial class MovieCatalogForm : Form
 {
-    private MovieCatalog movieCatalog = new();
+    private static readonly Dictionary<string, IDisplayStrategy> DisplayStrategies = new()
+    {
+        { "XML", new XMLDisplayStrategy() },
+        { "text", new TextDisplayStrategy() }
+    };
+
+    private MovieCatalog movieCatalog;
+    private List<Movie>? foundMovies;
     private Movie? movieToEdit = null;
 
     public MovieCatalogForm()
@@ -14,12 +21,38 @@ public partial class MovieCatalogForm : Form
         searchComboBox.DataSource = Enum.GetValues(typeof(MovieAttribute));
         countryComboBox.DataSource = Enum.GetValues(typeof(Country));
 
+        movieCatalog = new(GetDisplayStrategy());
+
         UpdateEditMovieRadioButton();
         UpdateMovieIdNumericUpDown(movieIdNumericUpDown);
         UpdateMovieIdNumericUpDown(movieIdForRemoveNumericUpDown);
 
         addMovieRadioButton.Enabled = false;
         editMovieRadioButton.Enabled = false;
+    }
+
+    private static RadioButton? GetChechedRadioButton(GroupBox groupBox)
+    {
+        RadioButton? checkedRadioButton = null;
+
+        foreach (var control in groupBox.Controls)
+        {
+            if (control is RadioButton radioButton && radioButton.Checked)
+            {
+                checkedRadioButton = radioButton;
+                break;
+            }
+        }
+
+        return checkedRadioButton;
+    }
+
+    private IDisplayStrategy GetDisplayStrategy()
+    {
+        string? displayFormat = (GetChechedRadioButton(displayFormatGroupBox)?.Text) ?? throw
+    new InvalidOperationException("Формат записей не выбран.");
+
+        return DisplayStrategies[displayFormat];
     }
 
     private void AddMovieButton_Click(object sender, EventArgs e)
@@ -139,7 +172,7 @@ public partial class MovieCatalogForm : Form
         string searchAttribute = searchComboBox.Text;
 
         Enum.TryParse(searchAttribute, out MovieAttribute movieMttribute);
-        List<Movie> foundMovies = movieCatalog.FindMovie(movieMttribute, searchValue);
+        foundMovies = movieCatalog.FindMovie(movieMttribute, searchValue);
 
         if (foundMovies.Count == 0)
         {
@@ -355,5 +388,18 @@ public partial class MovieCatalogForm : Form
         editMovieRadioButton.Enabled = false;
 
         DisableInputFields();
+    }
+
+    private void DisplayFormatRadioButton_CheckedChanged(object sender, EventArgs e)
+    {
+        IDisplayStrategy displayStrategy = GetDisplayStrategy();
+        movieCatalog.SetDisplayStrategy(displayStrategy);
+
+        movieCatalog.ShowMovies(moviesRichTextBox);
+
+        if (foundMovies is not null)
+        {
+            movieCatalog.ShowMovies(searchResultsRichTextBox, foundMovies);
+        }
     }
 }

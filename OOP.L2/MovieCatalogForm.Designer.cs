@@ -62,10 +62,15 @@ partial class MovieCatalogForm
         movieIdForRemoveNumericUpDown = new NumericUpDown();
         searchComboBox = new ComboBox();
         searchValueLabel = new Label();
+        displayFormatGroupBox = new GroupBox();
+        textDisplayFormatRadioButton = new RadioButton();
+        xmlDisplayFormatRadioButton = new RadioButton();
+        label1 = new Label();
         ((System.ComponentModel.ISupportInitialize)raitingTrackBar).BeginInit();
         addEditGroupBox.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)movieIdNumericUpDown).BeginInit();
         ((System.ComponentModel.ISupportInitialize)movieIdForRemoveNumericUpDown).BeginInit();
+        displayFormatGroupBox.SuspendLayout();
         SuspendLayout();
         // 
         // movieLabel
@@ -132,7 +137,7 @@ partial class MovieCatalogForm
         // 
         // moviesRichTextBox
         // 
-        moviesRichTextBox.Location = new Point(403, 65);
+        moviesRichTextBox.Location = new Point(408, 155);
         moviesRichTextBox.Name = "moviesRichTextBox";
         moviesRichTextBox.ReadOnly = true;
         moviesRichTextBox.Size = new Size(364, 144);
@@ -171,7 +176,7 @@ partial class MovieCatalogForm
         // moviesLabel
         // 
         moviesLabel.AutoSize = true;
-        moviesLabel.Location = new Point(403, 35);
+        moviesLabel.Location = new Point(408, 125);
         moviesLabel.Name = "moviesLabel";
         moviesLabel.Size = new Size(82, 15);
         moviesLabel.TabIndex = 0;
@@ -181,7 +186,7 @@ partial class MovieCatalogForm
         // 
         sortComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
         sortComboBox.FormattingEnabled = true;
-        sortComboBox.Location = new Point(505, 223);
+        sortComboBox.Location = new Point(510, 313);
         sortComboBox.Name = "sortComboBox";
         sortComboBox.Size = new Size(121, 23);
         sortComboBox.TabIndex = 81;
@@ -189,7 +194,7 @@ partial class MovieCatalogForm
         // sortByLabel
         // 
         sortByLabel.AutoSize = true;
-        sortByLabel.Location = new Point(401, 226);
+        sortByLabel.Location = new Point(406, 316);
         sortByLabel.Name = "sortByLabel";
         sortByLabel.Size = new Size(98, 15);
         sortByLabel.TabIndex = 82;
@@ -197,7 +202,7 @@ partial class MovieCatalogForm
         // 
         // sortMoviesButton
         // 
-        sortMoviesButton.Location = new Point(632, 223);
+        sortMoviesButton.Location = new Point(637, 313);
         sortMoviesButton.Name = "sortMoviesButton";
         sortMoviesButton.Size = new Size(97, 23);
         sortMoviesButton.TabIndex = 83;
@@ -216,7 +221,7 @@ partial class MovieCatalogForm
         // 
         // searchResultsRichTextBox
         // 
-        searchResultsRichTextBox.Location = new Point(403, 301);
+        searchResultsRichTextBox.Location = new Point(408, 391);
         searchResultsRichTextBox.Name = "searchResultsRichTextBox";
         searchResultsRichTextBox.ReadOnly = true;
         searchResultsRichTextBox.Size = new Size(364, 86);
@@ -226,7 +231,7 @@ partial class MovieCatalogForm
         // searchResultsLabel
         // 
         searchResultsLabel.AutoSize = true;
-        searchResultsLabel.Location = new Point(403, 274);
+        searchResultsLabel.Location = new Point(408, 364);
         searchResultsLabel.Name = "searchResultsLabel";
         searchResultsLabel.Size = new Size(111, 15);
         searchResultsLabel.TabIndex = 85;
@@ -390,12 +395,56 @@ partial class MovieCatalogForm
         searchValueLabel.TabIndex = 102;
         searchValueLabel.Text = "Значение для поиска:";
         // 
+        // displayFormatGroupBox
+        // 
+        displayFormatGroupBox.Controls.Add(textDisplayFormatRadioButton);
+        displayFormatGroupBox.Controls.Add(xmlDisplayFormatRadioButton);
+        displayFormatGroupBox.Location = new Point(408, 36);
+        displayFormatGroupBox.Name = "displayFormatGroupBox";
+        displayFormatGroupBox.Size = new Size(100, 78);
+        displayFormatGroupBox.TabIndex = 91;
+        displayFormatGroupBox.TabStop = false;
+        // 
+        // textDisplayFormatRadioButton
+        // 
+        textDisplayFormatRadioButton.AutoSize = true;
+        textDisplayFormatRadioButton.Location = new Point(0, 43);
+        textDisplayFormatRadioButton.Name = "textDisplayFormatRadioButton";
+        textDisplayFormatRadioButton.Size = new Size(45, 19);
+        textDisplayFormatRadioButton.TabIndex = 1;
+        textDisplayFormatRadioButton.Text = "text";
+        textDisplayFormatRadioButton.UseVisualStyleBackColor = true;
+        // 
+        // xmlDisplayFormatRadioButton
+        // 
+        xmlDisplayFormatRadioButton.AutoSize = true;
+        xmlDisplayFormatRadioButton.Checked = true;
+        xmlDisplayFormatRadioButton.Location = new Point(0, 18);
+        xmlDisplayFormatRadioButton.Name = "xmlDisplayFormatRadioButton";
+        xmlDisplayFormatRadioButton.Size = new Size(49, 19);
+        xmlDisplayFormatRadioButton.TabIndex = 0;
+        xmlDisplayFormatRadioButton.TabStop = true;
+        xmlDisplayFormatRadioButton.Text = "XML";
+        xmlDisplayFormatRadioButton.UseVisualStyleBackColor = true;
+        xmlDisplayFormatRadioButton.CheckedChanged += DisplayFormatRadioButton_CheckedChanged;
+        // 
+        // label1
+        // 
+        label1.AutoSize = true;
+        label1.Location = new Point(408, 18);
+        label1.Name = "label1";
+        label1.Size = new Size(100, 15);
+        label1.TabIndex = 103;
+        label1.Text = "Формат записей:";
+        // 
         // MovieCatalogForm
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = SystemColors.Control;
         ClientSize = new Size(784, 564);
+        Controls.Add(label1);
+        Controls.Add(displayFormatGroupBox);
         Controls.Add(searchValueLabel);
         Controls.Add(searchComboBox);
         Controls.Add(movieIdForRemoveNumericUpDown);
@@ -435,6 +484,8 @@ partial class MovieCatalogForm
         addEditGroupBox.PerformLayout();
         ((System.ComponentModel.ISupportInitialize)movieIdNumericUpDown).EndInit();
         ((System.ComponentModel.ISupportInitialize)movieIdForRemoveNumericUpDown).EndInit();
+        displayFormatGroupBox.ResumeLayout(false);
+        displayFormatGroupBox.PerformLayout();
         ResumeLayout(false);
         PerformLayout();
     }
@@ -475,4 +526,8 @@ partial class MovieCatalogForm
     private NumericUpDown movieIdForRemoveNumericUpDown;
     private ComboBox searchComboBox;
     private Label searchValueLabel;
+    private GroupBox displayFormatGroupBox;
+    private RadioButton textDisplayFormatRadioButton;
+    private RadioButton xmlDisplayFormatRadioButton;
+    private Label label1;
 }
