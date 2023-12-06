@@ -3,5 +3,5 @@ public interface IObservable
 {
     void Subscribe(IObserver observer);
     void Unsubscribe(IObserver observer);
-    void NotifyObservers(Movie newMovie);
+    void NotifyObservers(object entity, object element);
 }

@@ -64,6 +64,8 @@ partial class MovieCatalogForm
         subscriptionLabel = new Label();
         subscribeButton = new Button();
         unsubscribeButton = new Button();
+        label3 = new Label();
+        notificationsRichTextBox = new RichTextBox();
         ((System.ComponentModel.ISupportInitialize)raitingTrackBar).BeginInit();
         addEditGroupBox.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)movieIdNumericUpDown).BeginInit();
@@ -221,7 +223,7 @@ partial class MovieCatalogForm
         usersRichTextBox.Location = new Point(403, 301);
         usersRichTextBox.Name = "usersRichTextBox";
         usersRichTextBox.ReadOnly = true;
-        usersRichTextBox.Size = new Size(364, 86);
+        usersRichTextBox.Size = new Size(364, 63);
         usersRichTextBox.TabIndex = 84;
         usersRichTextBox.Text = "";
         // 
@@ -393,14 +395,14 @@ partial class MovieCatalogForm
         subscriptionLabel.AutoSize = true;
         subscriptionLabel.Location = new Point(12, 540);
         subscriptionLabel.Name = "subscriptionLabel";
-        subscriptionLabel.Size = new Size(284, 15);
+        subscriptionLabel.Size = new Size(213, 15);
         subscriptionLabel.TabIndex = 109;
-        subscriptionLabel.Text = "Подписка на получение информации о новинках:";
+        subscriptionLabel.Text = "Получение информации о новинках:";
         subscriptionLabel.Visible = false;
         // 
         // subscribeButton
         // 
-        subscribeButton.Location = new Point(302, 536);
+        subscribeButton.Location = new Point(227, 536);
         subscribeButton.Name = "subscribeButton";
         subscribeButton.Size = new Size(89, 23);
         subscribeButton.TabIndex = 110;
@@ -412,7 +414,7 @@ partial class MovieCatalogForm
         // unsubscribeButton
         // 
         unsubscribeButton.Enabled = false;
-        unsubscribeButton.Location = new Point(396, 536);
+        unsubscribeButton.Location = new Point(321, 536);
         unsubscribeButton.Name = "unsubscribeButton";
         unsubscribeButton.Size = new Size(89, 23);
         unsubscribeButton.TabIndex = 111;
@@ -421,12 +423,32 @@ partial class MovieCatalogForm
         unsubscribeButton.Visible = false;
         unsubscribeButton.Click += UnsubscribeButton_Click;
         // 
+        // label3
+        // 
+        label3.AutoSize = true;
+        label3.Location = new Point(401, 380);
+        label3.Name = "label3";
+        label3.Size = new Size(79, 15);
+        label3.TabIndex = 113;
+        label3.Text = "Оповещения";
+        // 
+        // notificationsRichTextBox
+        // 
+        notificationsRichTextBox.Location = new Point(401, 407);
+        notificationsRichTextBox.Name = "notificationsRichTextBox";
+        notificationsRichTextBox.ReadOnly = true;
+        notificationsRichTextBox.Size = new Size(364, 63);
+        notificationsRichTextBox.TabIndex = 112;
+        notificationsRichTextBox.Text = "";
+        // 
         // MovieCatalogForm
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = SystemColors.Control;
         ClientSize = new Size(784, 564);
+        Controls.Add(label3);
+        Controls.Add(notificationsRichTextBox);
         Controls.Add(unsubscribeButton);
         Controls.Add(subscribeButton);
         Controls.Add(subscriptionLabel);
@@ -510,4 +532,6 @@ partial class MovieCatalogForm
     private Label subscriptionLabel;
     private Button subscribeButton;
     private Button unsubscribeButton;
+    private Label label3;
+    private RichTextBox notificationsRichTextBox;
 }

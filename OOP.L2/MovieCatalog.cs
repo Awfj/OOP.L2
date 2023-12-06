@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace OOP.L2;
+﻿namespace OOP.L2;
 public class MovieCatalog : IObservable
 {
     private List<Movie> movies = new();
@@ -16,19 +14,18 @@ public class MovieCatalog : IObservable
         observers.Remove(observer);
     }
 
-    public void NotifyObservers(Movie newMovie)
+    public void NotifyObservers(object entity, object element)
     {
-        foreach (var observer in observers)
+        foreach (IObserver observer in observers)
         {
-            observer.Update(newMovie);
+            observer.Update(entity, element);
         }
     }
 
-    public bool UserSubscribed(User user)
+    public List<IObserver> GetObservers()
     {
-        return observers.Cast<User>().Any(observer => observer.GetID() == user.GetID());
+        return observers;
     }
-
 
     public void AddMovie(
         string title,

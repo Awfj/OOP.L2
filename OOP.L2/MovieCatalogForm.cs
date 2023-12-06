@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 
 namespace OOP.L2;
@@ -45,6 +46,9 @@ public partial class MovieCatalogForm : Form
         UpdateEditMovieRadioButton();
         UpdateMovieIdNumericUpDown(movieIdNumericUpDown);
         ShowMessage(addedMovie, "Кинофильм добавлен");
+
+        notificationsRichTextBox.Text = string.Empty;
+        movieCatalog.NotifyObservers(addedMovie, notificationsRichTextBox);
     }
 
     private void EditMovieButton_Click(object sender, EventArgs e)
@@ -340,8 +344,8 @@ public partial class MovieCatalogForm : Form
         StringBuilder usersInfo = new();
         foreach (var user in users)
         {
-            bool userSubscribed = movieCatalog.UserSubscribed(user);
-            usersInfo.Append($"{user.ToString()}, {(userSubscribed ? "Подписан(а)" : "Не подписан(а)")}\n");
+            bool userSubscribed = UserSubscribed(user);
+            usersInfo.Append($"{user.ToString()}, {(userSubscribed ? "подписан(а)" : "не подписан(а)")}\n");
         }
         usersRichTextBox.Text = usersInfo.ToString().TrimEnd();
     }
@@ -383,6 +387,12 @@ public partial class MovieCatalogForm : Form
         return foundUser;
     }
 
+    public bool UserSubscribed(User user)
+    {
+        List<IObserver> observers = movieCatalog.GetObservers();
+        return observers.Cast<User>().Any(observer => observer.GetID() == user.GetID());
+    }
+
     private void SubscribeButton_Click(object sender, EventArgs e)
     {
         if (selectedUser is null)
@@ -405,7 +415,7 @@ public partial class MovieCatalogForm : Form
 
     private void UpdateSubscriptionButtonsState(User user)
     {
-        if (movieCatalog.UserSubscribed(user))
+        if (UserSubscribed(user))
         {
             subscribeButton.Enabled = false;
             unsubscribeButton.Enabled = true;

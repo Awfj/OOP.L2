@@ -1,5 +1,5 @@
 ﻿namespace OOP.L2;
 public interface IObserver
 {
-    void Update(Movie newMovie);
+    void Update(object entity, object element);
 }

@@ -32,13 +32,21 @@ public class User : IObserver
         return nextId;
     }
 
-    public void Update(Movie newMovie)
+    public void Update(object entity, object element)
     {
-        Console.WriteLine($"{name} был уведомлен(а) о новом филмье: {newMovie.GetTitle()}");
+        Movie newMovie = (Movie)entity;
+        RichTextBox richTextBox = (RichTextBox)element;
+
+        richTextBox.Text += $"{name} был(а) уведомлен(а) о новом фильме: {newMovie.GetTitle()}\n";
     }
 
     public override string ToString()
     {
         return $"ID: {id}, имя: {name}";
+    }
+
+    public void DisplayNewMovieInfo(Movie newMovie, RichTextBox richTextBox)
+    {
+        richTextBox.Text += $"{name} был(а) уведомлен(а) о новом фильме: {newMovie.GetTitle()}\n";
     }
 }
