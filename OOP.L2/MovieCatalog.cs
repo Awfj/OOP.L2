@@ -1,7 +1,34 @@
-﻿namespace OOP.L2;
-public class MovieCatalog
+﻿using System;
+
+namespace OOP.L2;
+public class MovieCatalog : IObservable
 {
     private List<Movie> movies = new();
+    private List<IObserver> observers = new();
+
+    public void Subscribe(IObserver observer)
+    {
+        observers.Add(observer);
+    }
+
+    public void Unsubscribe(IObserver observer)
+    {
+        observers.Remove(observer);
+    }
+
+    public void NotifyObservers(Movie newMovie)
+    {
+        foreach (var observer in observers)
+        {
+            observer.Update(newMovie);
+        }
+    }
+
+    public bool UserSubscribed(User user)
+    {
+        return observers.Cast<User>().Any(observer => observer.GetID() == user.GetID());
+    }
+
 
     public void AddMovie(
         string title,
@@ -32,14 +59,14 @@ public class MovieCatalog
     public Movie? RemoveMovie(int id)
     {
         Movie? movieToRemove = movies.Find(
-            movie => movie.GetId() == id
+            movie => movie.GetID() == id
         );
 
         if (movieToRemove == null)
             return null;
 
         movies.Remove(movieToRemove);
-        Movie.GetAvailableIds().Enqueue(movieToRemove.GetId());
+        Movie.GetAvailableIds().Enqueue(movieToRemove.GetID());
 
         return movieToRemove;
     }
@@ -74,7 +101,7 @@ public class MovieCatalog
     public Movie? FindMovie(int id)
     {
         Movie? foundMovie = movies.Find(
-            movie => movie.GetId() == id
+            movie => movie.GetID() == id
         );
 
         return foundMovie;

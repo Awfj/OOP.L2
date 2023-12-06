@@ -1,9 +1,13 @@
+using System.Text;
+
 namespace OOP.L2;
 
 public partial class MovieCatalogForm : Form
 {
     private MovieCatalog movieCatalog = new();
+    private List<User> users = new();
     private Movie? movieToEdit = null;
+    private User? selectedUser = null;
 
     public MovieCatalogForm()
     {
@@ -11,12 +15,10 @@ public partial class MovieCatalogForm : Form
 
         genreComboBox.DataSource = Enum.GetValues(typeof(MovieGenre));
         sortComboBox.DataSource = Enum.GetValues(typeof(MovieAttribute));
-        searchComboBox.DataSource = Enum.GetValues(typeof(MovieAttribute));
         countryComboBox.DataSource = Enum.GetValues(typeof(Country));
 
         UpdateEditMovieRadioButton();
         UpdateMovieIdNumericUpDown(movieIdNumericUpDown);
-        UpdateMovieIdNumericUpDown(movieIdForRemoveNumericUpDown);
 
         addMovieRadioButton.Enabled = false;
         editMovieRadioButton.Enabled = false;
@@ -42,7 +44,6 @@ public partial class MovieCatalogForm : Form
         Movie addedMovie = movieCatalog.GetMovies()[^1];
         UpdateEditMovieRadioButton();
         UpdateMovieIdNumericUpDown(movieIdNumericUpDown);
-        UpdateMovieIdNumericUpDown(movieIdForRemoveNumericUpDown);
         ShowMessage(addedMovie, "Кинофильм добавлен");
     }
 
@@ -73,40 +74,6 @@ public partial class MovieCatalogForm : Form
         DisableInputFields();
     }
 
-    private void RemoveMovieButton_Click(object sender, EventArgs e)
-    {
-        string errorMessage = "Не удалось удалить кинофильм";
-        string successMessage = "Кинофильм удален";
-
-        Movie? movie = FindMovieForAction(movieIdForRemoveNumericUpDown);
-
-        if (movie == null)
-        {
-            MessageBox.Show(errorMessage);
-            return;
-        }
-
-        Movie? removedMovie = movieCatalog.RemoveMovie(movie.GetId());
-
-        if (removedMovie == null)
-        {
-            MessageBox.Show(errorMessage);
-            return;
-        }
-
-        movieCatalog.ShowMovies(moviesRichTextBox);
-        ShowMessage(removedMovie, successMessage);
-
-        UpdateMovieIdNumericUpDown(movieIdNumericUpDown);
-        UpdateMovieIdNumericUpDown(movieIdForRemoveNumericUpDown);
-        ClearInputFields();
-
-        if (movieCatalog.GetMovies().Count == 0)
-        {
-            EnableAddMovieMode(false);
-        }
-    }
-
     private void FindMovieToEditButton_Click(object sender, EventArgs e)
     {
         string errorMessage = "Не найден кинофильм для изменения";
@@ -131,34 +98,6 @@ public partial class MovieCatalogForm : Form
 
         movieToEdit = movie;
         MessageBox.Show(successMessage);
-    }
-
-    private void FindMovieButton_Click(object sender, EventArgs e)
-    {
-        string searchValue = searchTitleTextBox.Text.Trim();
-        string searchAttribute = searchComboBox.Text;
-
-        Enum.TryParse(searchAttribute, out MovieAttribute movieMttribute);
-        List<Movie> foundMovies = movieCatalog.FindMovie(movieMttribute, searchValue);
-
-        if (foundMovies.Count == 0)
-        {
-            searchResultsRichTextBox.Text = string.Empty;
-            MessageBox.Show("Ничего не найдено");
-            return;
-        }
-
-        foreach (Movie movie in foundMovies)
-        {
-            searchResultsRichTextBox.Text += movie.ToString() + "\n";
-        }
-
-        searchResultsRichTextBox.Text = searchResultsRichTextBox.Text.TrimEnd();
-        searchTitleTextBox.Text = string.Empty;
-        searchComboBox.SelectedIndex = 0;
-
-        movieCatalog.ShowMovies(searchResultsRichTextBox, foundMovies);
-        ShowMessage(foundMovies, "Кинофильмы найдены");
     }
 
     private void MovieRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -262,9 +201,28 @@ public partial class MovieCatalogForm : Form
         MessageBox.Show(message);
     }
 
+    private void UpdateUserIdNumericUpDown(NumericUpDown userIdElement)
+    {
+        userIdElement.Maximum = Movie.NextID() - 1;
+
+        /*if (userIdElement.Maximum != 0
+            && userIdElement.Minimum != 1)
+            userIdElement.Minimum = 1;
+
+        if (movieCatalog.GetMovies().Count == 0)
+        {
+            userIdElement.Enabled = false;
+            EnableAddMovieMode();
+        }
+        else
+        {
+            userIdElement.Enabled = true;
+        }*/
+    }
+
     private void UpdateMovieIdNumericUpDown(NumericUpDown movieIdElement)
     {
-        movieIdElement.Maximum = Movie.NextId() - 1;
+        movieIdElement.Maximum = Movie.NextID() - 1;
 
         if (movieIdElement.Maximum != 0
             && movieIdElement.Minimum != 1)
@@ -272,13 +230,11 @@ public partial class MovieCatalogForm : Form
 
         if (movieCatalog.GetMovies().Count == 0)
         {
-            removeMovieButton.Enabled = false;
             movieIdElement.Enabled = false;
             EnableAddMovieMode();
         }
         else
         {
-            removeMovieButton.Enabled = true;
             movieIdElement.Enabled = true;
         }
     }
@@ -355,5 +311,109 @@ public partial class MovieCatalogForm : Form
         editMovieRadioButton.Enabled = false;
 
         DisableInputFields();
+    }
+
+    private void CteateUserButton_Click(object sender, EventArgs e)
+    {
+        string userName = userNameTextBox.Text;
+        if (!IsValidUserName(userName))
+        {
+            MessageBox.Show("Имя пользователя должно начинаться с заглавной буквы и содержать только буквы.");
+            userNameTextBox.Focus();
+            return;
+        }
+
+        users.Add(new User(userName));
+        userNameTextBox.Text = string.Empty;
+        ShowUsers();
+        ShowUserControls();
+        userIDNumericUpDown.Maximum = User.NextID() - 1;
+    }
+
+    private static bool IsValidUserName(string userName)
+    {
+        return !string.IsNullOrEmpty(userName) && char.IsUpper(userName[0]) && userName.All(char.IsLetter);
+    }
+
+    private void ShowUsers()
+    {
+        StringBuilder usersInfo = new();
+        foreach (var user in users)
+        {
+            bool userSubscribed = movieCatalog.UserSubscribed(user);
+            usersInfo.Append($"{user.ToString()}, {(userSubscribed ? "Подписан(а)" : "Не подписан(а)")}\n");
+        }
+        usersRichTextBox.Text = usersInfo.ToString().TrimEnd();
+    }
+
+    private void ShowUserControls()
+    {
+        if (chooseUseIDLabel.Visible == true)
+            return;
+
+        chooseUseIDLabel.Visible = true;
+        userIDNumericUpDown.Visible = true;
+        selectUserButton.Visible = true;
+        userIDLabel.Visible = true;
+        userIDTextBox.Visible = true;
+        subscriptionLabel.Visible = true;
+        subscribeButton.Visible = true;
+        unsubscribeButton.Visible = true;
+    }
+
+    private void SelectUserButton_Click(object sender, EventArgs e)
+    {
+        int userId = (int)userIDNumericUpDown.Value;
+        User? foundUser = FindUser(userId);
+
+        if (foundUser is null)
+            return;
+
+        selectedUser = foundUser;
+        userIDTextBox.Text = foundUser.GetID().ToString();
+        UpdateSubscriptionButtonsState(selectedUser);
+    }
+
+    private User? FindUser(int id)
+    {
+        User? foundUser = users.Find(
+            user => user.GetID() == id
+        );
+
+        return foundUser;
+    }
+
+    private void SubscribeButton_Click(object sender, EventArgs e)
+    {
+        if (selectedUser is null)
+            return;
+
+        movieCatalog.Subscribe(selectedUser);
+        UpdateSubscriptionButtonsState(selectedUser);
+        ShowUsers();
+    }
+
+    private void UnsubscribeButton_Click(object sender, EventArgs e)
+    {
+        if (selectedUser is null)
+            return;
+
+        movieCatalog.Unsubscribe(selectedUser);
+        UpdateSubscriptionButtonsState(selectedUser);
+        ShowUsers();
+    }
+
+    private void UpdateSubscriptionButtonsState(User user)
+    {
+        if (movieCatalog.UserSubscribed(user))
+        {
+            subscribeButton.Enabled = false;
+            unsubscribeButton.Enabled = true;
+        }
+        else
+        {
+            subscribeButton.Enabled = true;
+            unsubscribeButton.Enabled = false;
+        }
     }
 }

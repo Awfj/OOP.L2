@@ -50,12 +50,12 @@ public class Movie
         this.raiting = raiting;
     }
 
-    public int GetId()
+    public int GetID()
     {
         return id;
     }
 
-    public static int NextId()
+    public static int NextID()
     {
         return nextId;
     }
