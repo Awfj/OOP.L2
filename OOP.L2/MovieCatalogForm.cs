@@ -152,7 +152,7 @@ public partial class MovieCatalogForm : Form
         if (foundMovies.Count == 0)
         {
             searchResultsRichTextBox.Text = string.Empty;
-            MessageBox.Show("Íè÷åãî íå íàéäåíî");
+            MessageBox.Show("Ничего не найдено");
             return;
         }
 
@@ -166,7 +166,7 @@ public partial class MovieCatalogForm : Form
         searchComboBox.SelectedIndex = 0;
 
         movieCatalog.ShowMovies(searchResultsRichTextBox, foundMovies);
-        ShowMessage(foundMovies, "Êèíîôèëüìû íàéäåíû");
+        ShowMessage(foundMovies, "Кинофильмы найдены");
     }
 
     private void MovieRadioButton_CheckedChanged(object sender, EventArgs e)
