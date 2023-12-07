@@ -83,8 +83,8 @@ public partial class MovieCatalogForm : Form
 
     private void RemoveMovieButton_Click(object sender, EventArgs e)
     {
-        string errorMessage = "Íå óäàëîñü óäàëèòü êèíîôèëüì";
-        string successMessage = "Êèíîôèëüì óäàëåí";
+        string errorMessage = "Не удалось удалить кинофильм";
+        string successMessage = "Кинофильм удален";
 
         Movie? movie = FindMovieForAction(movieIdForRemoveNumericUpDown);
 
