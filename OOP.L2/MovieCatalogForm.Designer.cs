@@ -239,7 +239,7 @@ partial class MovieCatalogForm
         // 
         // searchTitleTextBox
         // 
-        searchTitleTextBox.Location = new Point(147, 417);
+        searchTitleTextBox.Location = new Point(143, 418);
         searchTitleTextBox.Name = "searchTitleTextBox";
         searchTitleTextBox.Size = new Size(145, 23);
         searchTitleTextBox.TabIndex = 86;
@@ -256,7 +256,7 @@ partial class MovieCatalogForm
         // searchByFieldLabel
         // 
         searchByFieldLabel.AutoSize = true;
-        searchByFieldLabel.Location = new Point(45, 384);
+        searchByFieldLabel.Location = new Point(41, 385);
         searchByFieldLabel.Name = "searchByFieldLabel";
         searchByFieldLabel.Size = new Size(96, 15);
         searchByFieldLabel.TabIndex = 88;
@@ -264,7 +264,7 @@ partial class MovieCatalogForm
         // 
         // searchMovieButton
         // 
-        searchMovieButton.Location = new Point(147, 446);
+        searchMovieButton.Location = new Point(143, 447);
         searchMovieButton.Name = "searchMovieButton";
         searchMovieButton.Size = new Size(104, 23);
         searchMovieButton.TabIndex = 89;
@@ -322,7 +322,7 @@ partial class MovieCatalogForm
         // removeMovieLabel
         // 
         removeMovieLabel.AutoSize = true;
-        removeMovieLabel.Location = new Point(14, 481);
+        removeMovieLabel.Location = new Point(10, 482);
         removeMovieLabel.Name = "removeMovieLabel";
         removeMovieLabel.Size = new Size(133, 15);
         removeMovieLabel.TabIndex = 93;
@@ -331,7 +331,7 @@ partial class MovieCatalogForm
         // movieIdRemoveLabel
         // 
         movieIdRemoveLabel.AutoSize = true;
-        movieIdRemoveLabel.Location = new Point(56, 510);
+        movieIdRemoveLabel.Location = new Point(52, 511);
         movieIdRemoveLabel.Name = "movieIdRemoveLabel";
         movieIdRemoveLabel.Size = new Size(20, 15);
         movieIdRemoveLabel.TabIndex = 94;
@@ -339,7 +339,7 @@ partial class MovieCatalogForm
         // 
         // removeMovieButton
         // 
-        removeMovieButton.Location = new Point(137, 508);
+        removeMovieButton.Location = new Point(133, 509);
         removeMovieButton.Name = "removeMovieButton";
         removeMovieButton.Size = new Size(104, 23);
         removeMovieButton.TabIndex = 96;
@@ -370,7 +370,7 @@ partial class MovieCatalogForm
         // 
         // movieIdForRemoveNumericUpDown
         // 
-        movieIdForRemoveNumericUpDown.Location = new Point(82, 508);
+        movieIdForRemoveNumericUpDown.Location = new Point(78, 509);
         movieIdForRemoveNumericUpDown.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
         movieIdForRemoveNumericUpDown.Name = "movieIdForRemoveNumericUpDown";
         movieIdForRemoveNumericUpDown.Size = new Size(49, 23);
@@ -381,7 +381,7 @@ partial class MovieCatalogForm
         // 
         searchComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
         searchComboBox.FormattingEnabled = true;
-        searchComboBox.Location = new Point(147, 381);
+        searchComboBox.Location = new Point(143, 382);
         searchComboBox.Name = "searchComboBox";
         searchComboBox.Size = new Size(121, 23);
         searchComboBox.TabIndex = 101;
@@ -389,7 +389,7 @@ partial class MovieCatalogForm
         // searchValueLabel
         // 
         searchValueLabel.AutoSize = true;
-        searchValueLabel.Location = new Point(14, 420);
+        searchValueLabel.Location = new Point(10, 421);
         searchValueLabel.Name = "searchValueLabel";
         searchValueLabel.Size = new Size(127, 15);
         searchValueLabel.TabIndex = 102;
