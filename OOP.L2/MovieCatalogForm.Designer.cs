@@ -44,14 +44,25 @@ partial class MovieCatalogForm
         sortByLabel = new Label();
         sortMoviesButton = new Button();
         countryComboBox = new ComboBox();
+        searchResultsRichTextBox = new RichTextBox();
         usersRichTextBox = new RichTextBox();
         searchResultsLabel = new Label();
+        searchTitleTextBox = new TextBox();
+        searchMoviesLabel = new Label();
+        searchByFieldLabel = new Label();
+        searchMovieButton = new Button();
         addEditGroupBox = new GroupBox();
         editMovieRadioButton = new RadioButton();
         addMovieRadioButton = new RadioButton();
         movieIdFindLabel = new Label();
+        removeMovieLabel = new Label();
+        movieIdRemoveLabel = new Label();
+        removeMovieButton = new Button();
         movieIdNumericUpDown = new NumericUpDown();
         findMovieToEditButton = new Button();
+        movieIdForRemoveNumericUpDown = new NumericUpDown();
+        searchComboBox = new ComboBox();
+        searchValueLabel = new Label();
         label1 = new Label();
         label2 = new Label();
         userNameTextBox = new TextBox();
@@ -66,9 +77,11 @@ partial class MovieCatalogForm
         unsubscribeButton = new Button();
         label3 = new Label();
         notificationsRichTextBox = new RichTextBox();
+        label4 = new Label();
         ((System.ComponentModel.ISupportInitialize)raitingTrackBar).BeginInit();
         addEditGroupBox.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)movieIdNumericUpDown).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)movieIdForRemoveNumericUpDown).BeginInit();
         ((System.ComponentModel.ISupportInitialize)userIDNumericUpDown).BeginInit();
         SuspendLayout();
         // 
@@ -136,10 +149,10 @@ partial class MovieCatalogForm
         // 
         // moviesRichTextBox
         // 
-        moviesRichTextBox.Location = new Point(403, 65);
+        moviesRichTextBox.Location = new Point(404, 41);
         moviesRichTextBox.Name = "moviesRichTextBox";
         moviesRichTextBox.ReadOnly = true;
-        moviesRichTextBox.Size = new Size(364, 144);
+        moviesRichTextBox.Size = new Size(364, 73);
         moviesRichTextBox.TabIndex = 50;
         moviesRichTextBox.Text = "";
         // 
@@ -175,7 +188,7 @@ partial class MovieCatalogForm
         // moviesLabel
         // 
         moviesLabel.AutoSize = true;
-        moviesLabel.Location = new Point(403, 35);
+        moviesLabel.Location = new Point(405, 14);
         moviesLabel.Name = "moviesLabel";
         moviesLabel.Size = new Size(82, 15);
         moviesLabel.TabIndex = 0;
@@ -185,7 +198,7 @@ partial class MovieCatalogForm
         // 
         sortComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
         sortComboBox.FormattingEnabled = true;
-        sortComboBox.Location = new Point(505, 223);
+        sortComboBox.Location = new Point(508, 120);
         sortComboBox.Name = "sortComboBox";
         sortComboBox.Size = new Size(121, 23);
         sortComboBox.TabIndex = 81;
@@ -193,7 +206,7 @@ partial class MovieCatalogForm
         // sortByLabel
         // 
         sortByLabel.AutoSize = true;
-        sortByLabel.Location = new Point(401, 226);
+        sortByLabel.Location = new Point(404, 123);
         sortByLabel.Name = "sortByLabel";
         sortByLabel.Size = new Size(98, 15);
         sortByLabel.TabIndex = 82;
@@ -201,7 +214,7 @@ partial class MovieCatalogForm
         // 
         // sortMoviesButton
         // 
-        sortMoviesButton.Location = new Point(632, 223);
+        sortMoviesButton.Location = new Point(635, 120);
         sortMoviesButton.Name = "sortMoviesButton";
         sortMoviesButton.Size = new Size(97, 23);
         sortMoviesButton.TabIndex = 83;
@@ -218,23 +231,67 @@ partial class MovieCatalogForm
         countryComboBox.Size = new Size(145, 23);
         countryComboBox.TabIndex = 3;
         // 
+        // searchResultsRichTextBox
+        // 
+        searchResultsRichTextBox.Location = new Point(404, 176);
+        searchResultsRichTextBox.Name = "searchResultsRichTextBox";
+        searchResultsRichTextBox.ReadOnly = true;
+        searchResultsRichTextBox.Size = new Size(364, 52);
+        searchResultsRichTextBox.TabIndex = 84;
+        searchResultsRichTextBox.Text = "";
+        // 
         // usersRichTextBox
         // 
-        usersRichTextBox.Location = new Point(403, 301);
+        usersRichTextBox.Location = new Point(404, 361);
         usersRichTextBox.Name = "usersRichTextBox";
         usersRichTextBox.ReadOnly = true;
-        usersRichTextBox.Size = new Size(364, 63);
+        usersRichTextBox.Size = new Size(368, 52);
         usersRichTextBox.TabIndex = 84;
         usersRichTextBox.Text = "";
         // 
         // searchResultsLabel
         // 
         searchResultsLabel.AutoSize = true;
-        searchResultsLabel.Location = new Point(403, 274);
+        searchResultsLabel.Location = new Point(404, 149);
         searchResultsLabel.Name = "searchResultsLabel";
-        searchResultsLabel.Size = new Size(85, 15);
+        searchResultsLabel.Size = new Size(111, 15);
         searchResultsLabel.TabIndex = 85;
-        searchResultsLabel.Text = "Пользователи";
+        searchResultsLabel.Text = "Результаты поиска";
+        // 
+        // searchTitleTextBox
+        // 
+        searchTitleTextBox.Location = new Point(143, 424);
+        searchTitleTextBox.Name = "searchTitleTextBox";
+        searchTitleTextBox.Size = new Size(145, 23);
+        searchTitleTextBox.TabIndex = 86;
+        // 
+        // searchMoviesLabel
+        // 
+        searchMoviesLabel.AutoSize = true;
+        searchMoviesLabel.Location = new Point(12, 361);
+        searchMoviesLabel.Name = "searchMoviesLabel";
+        searchMoviesLabel.Size = new Size(123, 15);
+        searchMoviesLabel.TabIndex = 87;
+        searchMoviesLabel.Text = "Поиск кинофильмов";
+        // 
+        // searchByFieldLabel
+        // 
+        searchByFieldLabel.AutoSize = true;
+        searchByFieldLabel.Location = new Point(41, 391);
+        searchByFieldLabel.Name = "searchByFieldLabel";
+        searchByFieldLabel.Size = new Size(96, 15);
+        searchByFieldLabel.TabIndex = 88;
+        searchByFieldLabel.Text = "Поиск по полю:";
+        // 
+        // searchMovieButton
+        // 
+        searchMovieButton.Location = new Point(143, 453);
+        searchMovieButton.Name = "searchMovieButton";
+        searchMovieButton.Size = new Size(104, 23);
+        searchMovieButton.TabIndex = 89;
+        searchMovieButton.Text = "Найти";
+        searchMovieButton.UseVisualStyleBackColor = true;
+        searchMovieButton.Click += FindMovieButton_Click;
         // 
         // addEditGroupBox
         // 
@@ -283,6 +340,34 @@ partial class MovieCatalogForm
         movieIdFindLabel.Text = "Выберите ID фильма для изменения:";
         movieIdFindLabel.Visible = false;
         // 
+        // removeMovieLabel
+        // 
+        removeMovieLabel.AutoSize = true;
+        removeMovieLabel.Location = new Point(10, 488);
+        removeMovieLabel.Name = "removeMovieLabel";
+        removeMovieLabel.Size = new Size(133, 15);
+        removeMovieLabel.TabIndex = 93;
+        removeMovieLabel.Text = "Удаление кинофильма";
+        // 
+        // movieIdRemoveLabel
+        // 
+        movieIdRemoveLabel.AutoSize = true;
+        movieIdRemoveLabel.Location = new Point(52, 517);
+        movieIdRemoveLabel.Name = "movieIdRemoveLabel";
+        movieIdRemoveLabel.Size = new Size(20, 15);
+        movieIdRemoveLabel.TabIndex = 94;
+        movieIdRemoveLabel.Text = "Id:";
+        // 
+        // removeMovieButton
+        // 
+        removeMovieButton.Location = new Point(133, 515);
+        removeMovieButton.Name = "removeMovieButton";
+        removeMovieButton.Size = new Size(104, 23);
+        removeMovieButton.TabIndex = 96;
+        removeMovieButton.Text = "Удалить";
+        removeMovieButton.UseVisualStyleBackColor = true;
+        removeMovieButton.Click += RemoveMovieButton_Click;
+        // 
         // movieIdNumericUpDown
         // 
         movieIdNumericUpDown.Location = new Point(227, 91);
@@ -304,10 +389,37 @@ partial class MovieCatalogForm
         findMovieToEditButton.Visible = false;
         findMovieToEditButton.Click += FindMovieToEditButton_Click;
         // 
+        // movieIdForRemoveNumericUpDown
+        // 
+        movieIdForRemoveNumericUpDown.Location = new Point(78, 515);
+        movieIdForRemoveNumericUpDown.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+        movieIdForRemoveNumericUpDown.Name = "movieIdForRemoveNumericUpDown";
+        movieIdForRemoveNumericUpDown.Size = new Size(49, 23);
+        movieIdForRemoveNumericUpDown.TabIndex = 100;
+        movieIdForRemoveNumericUpDown.Value = new decimal(new int[] { 1, 0, 0, 0 });
+        // 
+        // searchComboBox
+        // 
+        searchComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+        searchComboBox.FormattingEnabled = true;
+        searchComboBox.Location = new Point(143, 388);
+        searchComboBox.Name = "searchComboBox";
+        searchComboBox.Size = new Size(121, 23);
+        searchComboBox.TabIndex = 101;
+        // 
+        // searchValueLabel
+        // 
+        searchValueLabel.AutoSize = true;
+        searchValueLabel.Location = new Point(10, 427);
+        searchValueLabel.Name = "searchValueLabel";
+        searchValueLabel.Size = new Size(127, 15);
+        searchValueLabel.TabIndex = 102;
+        searchValueLabel.Text = "Значение для поиска:";
+        // 
         // label1
         // 
         label1.AutoSize = true;
-        label1.Location = new Point(80, 389);
+        label1.Location = new Point(442, 432);
         label1.Name = "label1";
         label1.Size = new Size(152, 15);
         label1.TabIndex = 100;
@@ -316,7 +428,7 @@ partial class MovieCatalogForm
         // label2
         // 
         label2.AutoSize = true;
-        label2.Location = new Point(40, 410);
+        label2.Location = new Point(402, 465);
         label2.Name = "label2";
         label2.Size = new Size(34, 15);
         label2.TabIndex = 101;
@@ -324,14 +436,14 @@ partial class MovieCatalogForm
         // 
         // userNameTextBox
         // 
-        userNameTextBox.Location = new Point(80, 407);
+        userNameTextBox.Location = new Point(442, 462);
         userNameTextBox.Name = "userNameTextBox";
         userNameTextBox.Size = new Size(145, 23);
         userNameTextBox.TabIndex = 102;
         // 
         // AddUserButton
         // 
-        AddUserButton.Location = new Point(80, 436);
+        AddUserButton.Location = new Point(593, 462);
         AddUserButton.Name = "AddUserButton";
         AddUserButton.Size = new Size(104, 23);
         AddUserButton.TabIndex = 103;
@@ -341,7 +453,7 @@ partial class MovieCatalogForm
         // 
         // userIDNumericUpDown
         // 
-        userIDNumericUpDown.Location = new Point(188, 477);
+        userIDNumericUpDown.Location = new Point(578, 504);
         userIDNumericUpDown.Maximum = new decimal(new int[] { 1, 0, 0, 0 });
         userIDNumericUpDown.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
         userIDNumericUpDown.Name = "userIDNumericUpDown";
@@ -353,7 +465,7 @@ partial class MovieCatalogForm
         // userIDLabel
         // 
         userIDLabel.AutoSize = true;
-        userIDLabel.Location = new Point(12, 508);
+        userIDLabel.Location = new Point(402, 535);
         userIDLabel.Name = "userIDLabel";
         userIDLabel.Size = new Size(170, 15);
         userIDLabel.TabIndex = 105;
@@ -362,7 +474,7 @@ partial class MovieCatalogForm
         // 
         // userIDTextBox
         // 
-        userIDTextBox.Location = new Point(188, 505);
+        userIDTextBox.Location = new Point(578, 532);
         userIDTextBox.Name = "userIDTextBox";
         userIDTextBox.ReadOnly = true;
         userIDTextBox.Size = new Size(33, 23);
@@ -372,7 +484,7 @@ partial class MovieCatalogForm
         // chooseUseIDLabel
         // 
         chooseUseIDLabel.AutoSize = true;
-        chooseUseIDLabel.Location = new Point(12, 479);
+        chooseUseIDLabel.Location = new Point(402, 506);
         chooseUseIDLabel.Name = "chooseUseIDLabel";
         chooseUseIDLabel.Size = new Size(173, 15);
         chooseUseIDLabel.TabIndex = 107;
@@ -381,7 +493,7 @@ partial class MovieCatalogForm
         // 
         // selectUserButton
         // 
-        selectUserButton.Location = new Point(243, 477);
+        selectUserButton.Location = new Point(633, 504);
         selectUserButton.Name = "selectUserButton";
         selectUserButton.Size = new Size(75, 23);
         selectUserButton.TabIndex = 108;
@@ -393,16 +505,16 @@ partial class MovieCatalogForm
         // subscriptionLabel
         // 
         subscriptionLabel.AutoSize = true;
-        subscriptionLabel.Location = new Point(12, 540);
+        subscriptionLabel.Location = new Point(402, 573);
         subscriptionLabel.Name = "subscriptionLabel";
-        subscriptionLabel.Size = new Size(213, 15);
+        subscriptionLabel.Size = new Size(150, 15);
         subscriptionLabel.TabIndex = 109;
-        subscriptionLabel.Text = "Получение информации о новинках:";
+        subscriptionLabel.Text = "Информации о новинках:";
         subscriptionLabel.Visible = false;
         // 
         // subscribeButton
         // 
-        subscribeButton.Location = new Point(227, 536);
+        subscribeButton.Location = new Point(558, 569);
         subscribeButton.Name = "subscribeButton";
         subscribeButton.Size = new Size(89, 23);
         subscribeButton.TabIndex = 110;
@@ -414,7 +526,7 @@ partial class MovieCatalogForm
         // unsubscribeButton
         // 
         unsubscribeButton.Enabled = false;
-        unsubscribeButton.Location = new Point(321, 536);
+        unsubscribeButton.Location = new Point(652, 569);
         unsubscribeButton.Name = "unsubscribeButton";
         unsubscribeButton.Size = new Size(89, 23);
         unsubscribeButton.TabIndex = 111;
@@ -426,7 +538,7 @@ partial class MovieCatalogForm
         // label3
         // 
         label3.AutoSize = true;
-        label3.Location = new Point(401, 380);
+        label3.Location = new Point(404, 242);
         label3.Name = "label3";
         label3.Size = new Size(79, 15);
         label3.TabIndex = 113;
@@ -434,21 +546,34 @@ partial class MovieCatalogForm
         // 
         // notificationsRichTextBox
         // 
-        notificationsRichTextBox.Location = new Point(401, 407);
+        notificationsRichTextBox.Location = new Point(404, 266);
         notificationsRichTextBox.Name = "notificationsRichTextBox";
         notificationsRichTextBox.ReadOnly = true;
-        notificationsRichTextBox.Size = new Size(364, 63);
+        notificationsRichTextBox.Size = new Size(364, 58);
         notificationsRichTextBox.TabIndex = 112;
         notificationsRichTextBox.Text = "";
+        // 
+        // label4
+        // 
+        label4.AutoSize = true;
+        label4.Location = new Point(404, 339);
+        label4.Name = "label4";
+        label4.Size = new Size(85, 15);
+        label4.TabIndex = 114;
+        label4.Text = "Пользователи";
         // 
         // MovieCatalogForm
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = SystemColors.Control;
-        ClientSize = new Size(784, 564);
+        ClientSize = new Size(787, 610);
+        Controls.Add(label4);
         Controls.Add(label3);
         Controls.Add(notificationsRichTextBox);
+        Controls.Add(searchValueLabel);
+        Controls.Add(searchComboBox);
+        Controls.Add(movieIdForRemoveNumericUpDown);
         Controls.Add(unsubscribeButton);
         Controls.Add(subscribeButton);
         Controls.Add(subscriptionLabel);
@@ -463,9 +588,17 @@ partial class MovieCatalogForm
         Controls.Add(label1);
         Controls.Add(findMovieToEditButton);
         Controls.Add(movieIdNumericUpDown);
+        Controls.Add(removeMovieButton);
+        Controls.Add(movieIdRemoveLabel);
+        Controls.Add(removeMovieLabel);
         Controls.Add(movieIdFindLabel);
         Controls.Add(addEditGroupBox);
+        Controls.Add(searchMovieButton);
+        Controls.Add(searchByFieldLabel);
+        Controls.Add(searchMoviesLabel);
+        Controls.Add(searchTitleTextBox);
         Controls.Add(searchResultsLabel);
+        Controls.Add(searchResultsRichTextBox);
         Controls.Add(usersRichTextBox);
         Controls.Add(countryComboBox);
         Controls.Add(sortMoviesButton);
@@ -489,6 +622,7 @@ partial class MovieCatalogForm
         addEditGroupBox.ResumeLayout(false);
         addEditGroupBox.PerformLayout();
         ((System.ComponentModel.ISupportInitialize)movieIdNumericUpDown).EndInit();
+        ((System.ComponentModel.ISupportInitialize)movieIdForRemoveNumericUpDown).EndInit();
         ((System.ComponentModel.ISupportInitialize)userIDNumericUpDown).EndInit();
         ResumeLayout(false);
         PerformLayout();
@@ -512,14 +646,25 @@ partial class MovieCatalogForm
     private Label sortByLabel;
     private Button sortMoviesButton;
     private ComboBox countryComboBox;
+    private RichTextBox searchResultsRichTextBox;
     private RichTextBox usersRichTextBox;
     private Label searchResultsLabel;
+    private TextBox searchTitleTextBox;
+    private Label searchMoviesLabel;
+    private Label searchByFieldLabel;
+    private Button searchMovieButton;
     private GroupBox addEditGroupBox;
     private RadioButton editMovieRadioButton;
     private RadioButton addMovieRadioButton;
     private Label movieIdFindLabel;
+    private Label removeMovieLabel;
+    private Label movieIdRemoveLabel;
+    private Button removeMovieButton;
     private NumericUpDown movieIdNumericUpDown;
     private Button findMovieToEditButton;
+    private NumericUpDown movieIdForRemoveNumericUpDown;
+    private ComboBox searchComboBox;
+    private Label searchValueLabel;
     private Label label1;
     private Label label2;
     private TextBox userNameTextBox;
@@ -534,4 +679,5 @@ partial class MovieCatalogForm
     private Button unsubscribeButton;
     private Label label3;
     private RichTextBox notificationsRichTextBox;
+    private Label label4;
 }

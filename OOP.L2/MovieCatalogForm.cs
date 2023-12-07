@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Text;
 
 namespace OOP.L2;
@@ -16,10 +16,12 @@ public partial class MovieCatalogForm : Form
 
         genreComboBox.DataSource = Enum.GetValues(typeof(MovieGenre));
         sortComboBox.DataSource = Enum.GetValues(typeof(MovieAttribute));
+        searchComboBox.DataSource = Enum.GetValues(typeof(MovieAttribute));
         countryComboBox.DataSource = Enum.GetValues(typeof(Country));
 
         UpdateEditMovieRadioButton();
         UpdateMovieIdNumericUpDown(movieIdNumericUpDown);
+        UpdateMovieIdNumericUpDown(movieIdForRemoveNumericUpDown);
 
         addMovieRadioButton.Enabled = false;
         editMovieRadioButton.Enabled = false;
@@ -45,7 +47,8 @@ public partial class MovieCatalogForm : Form
         Movie addedMovie = movieCatalog.GetMovies()[^1];
         UpdateEditMovieRadioButton();
         UpdateMovieIdNumericUpDown(movieIdNumericUpDown);
-        ShowMessage(addedMovie, "Кинофильм добавлен");
+        UpdateMovieIdNumericUpDown(movieIdForRemoveNumericUpDown);
+        ShowMessage(addedMovie, "РљРёРЅРѕС„РёР»СЊРј РґРѕР±Р°РІР»РµРЅ");
 
         notificationsRichTextBox.Text = string.Empty;
         movieCatalog.NotifyObservers(addedMovie, notificationsRichTextBox);
@@ -53,8 +56,8 @@ public partial class MovieCatalogForm : Form
 
     private void EditMovieButton_Click(object sender, EventArgs e)
     {
-        string errorMessage = "Ошибка изменения";
-        string successMessage = "Кинофильм изменен";
+        string errorMessage = "РћС€РёР±РєР° РёР·РјРµРЅРµРЅРёСЏ";
+        string successMessage = "РљРёРЅРѕС„РёР»СЊРј РёР·РјРµРЅРµРЅ";
 
         if (movieToEdit == null)
         {
@@ -78,10 +81,44 @@ public partial class MovieCatalogForm : Form
         DisableInputFields();
     }
 
+    private void RemoveMovieButton_Click(object sender, EventArgs e)
+    {
+        string errorMessage = "ГЌГҐ ГіГ¤Г Г«Г®Г±Гј ГіГ¤Г Г«ГЁГІГј ГЄГЁГ­Г®ГґГЁГ«ГјГ¬";
+        string successMessage = "ГЉГЁГ­Г®ГґГЁГ«ГјГ¬ ГіГ¤Г Г«ГҐГ­";
+
+        Movie? movie = FindMovieForAction(movieIdForRemoveNumericUpDown);
+
+        if (movie == null)
+        {
+            MessageBox.Show(errorMessage);
+            return;
+        }
+
+        Movie? removedMovie = movieCatalog.RemoveMovie(movie.GetID());
+
+        if (removedMovie == null)
+        {
+            MessageBox.Show(errorMessage);
+            return;
+        }
+
+        movieCatalog.ShowMovies(moviesRichTextBox);
+        ShowMessage(removedMovie, successMessage);
+
+        UpdateMovieIdNumericUpDown(movieIdNumericUpDown);
+        UpdateMovieIdNumericUpDown(movieIdForRemoveNumericUpDown);
+        ClearInputFields();
+
+        if (movieCatalog.GetMovies().Count == 0)
+        {
+            EnableAddMovieMode(false);
+        }
+    }
+
     private void FindMovieToEditButton_Click(object sender, EventArgs e)
     {
-        string errorMessage = "Не найден кинофильм для изменения";
-        string successMessage = "Найден кинофильм для изменения";
+        string errorMessage = "РќРµ РЅР°Р№РґРµРЅ РєРёРЅРѕС„РёР»СЊРј РґР»СЏ РёР·РјРµРЅРµРЅРёСЏ";
+        string successMessage = "РќР°Р№РґРµРЅ РєРёРЅРѕС„РёР»СЊРј РґР»СЏ РёР·РјРµРЅРµРЅРёСЏ";
 
         Movie? movie = FindMovieForAction(movieIdNumericUpDown);
 
@@ -104,12 +141,40 @@ public partial class MovieCatalogForm : Form
         MessageBox.Show(successMessage);
     }
 
+    private void FindMovieButton_Click(object sender, EventArgs e)
+    {
+        string searchValue = searchTitleTextBox.Text.Trim();
+        string searchAttribute = searchComboBox.Text;
+
+        Enum.TryParse(searchAttribute, out MovieAttribute movieMttribute);
+        List<Movie> foundMovies = movieCatalog.FindMovie(movieMttribute, searchValue);
+
+        if (foundMovies.Count == 0)
+        {
+            searchResultsRichTextBox.Text = string.Empty;
+            MessageBox.Show("ГЌГЁГ·ГҐГЈГ® Г­ГҐ Г­Г Г©Г¤ГҐГ­Г®");
+            return;
+        }
+
+        foreach (Movie movie in foundMovies)
+        {
+            searchResultsRichTextBox.Text += movie.ToString() + "\n";
+        }
+
+        searchResultsRichTextBox.Text = searchResultsRichTextBox.Text.TrimEnd();
+        searchTitleTextBox.Text = string.Empty;
+        searchComboBox.SelectedIndex = 0;
+
+        movieCatalog.ShowMovies(searchResultsRichTextBox, foundMovies);
+        ShowMessage(foundMovies, "ГЉГЁГ­Г®ГґГЁГ«ГјГ¬Г» Г­Г Г©Г¤ГҐГ­Г»");
+    }
+
     private void MovieRadioButton_CheckedChanged(object sender, EventArgs e)
     {
         if (addMovieRadioButton.Checked)
         {
-            addEditMovieButton.Text = "Добавить";
-            movieLabel.Text = "Введите информацию о кинофильме";
+            addEditMovieButton.Text = "Р”РѕР±Р°РІРёС‚СЊ";
+            movieLabel.Text = "Р’РІРµРґРёС‚Рµ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РєРёРЅРѕС„РёР»СЊРјРµ";
 
             movieIdFindLabel.Visible = false;
             movieIdNumericUpDown.Visible = false;
@@ -122,8 +187,8 @@ public partial class MovieCatalogForm : Form
         }
         else
         {
-            addEditMovieButton.Text = "Изменить";
-            movieLabel.Text = "Измените информацию о кинофильме";
+            addEditMovieButton.Text = "РР·РјРµРЅРёС‚СЊ";
+            movieLabel.Text = "РР·РјРµРЅРёС‚Рµ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РєРёРЅРѕС„РёР»СЊРјРµ";
 
             movieIdFindLabel.Visible = true;
             movieIdNumericUpDown.Visible = true;
@@ -140,7 +205,7 @@ public partial class MovieCatalogForm : Form
     {
         movieCatalog.SortMovies(sortComboBox.Text);
         movieCatalog.ShowMovies(moviesRichTextBox);
-        ShowMessage(movieCatalog.GetMovies(), "Кинофильмы отсортированы");
+        ShowMessage(movieCatalog.GetMovies(), "РљРёРЅРѕС„РёР»СЊРјС‹ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅС‹");
     }
 
     private void RaitingTrackBar_ValueChanged(object sender, EventArgs e)
@@ -173,7 +238,7 @@ public partial class MovieCatalogForm : Form
         if (string.IsNullOrWhiteSpace(title))
         {
             if (showMessage)
-                MessageBox.Show("Заполните поле \"Название!\"");
+                MessageBox.Show("Р—Р°РїРѕР»РЅРёС‚Рµ РїРѕР»Рµ \"РќР°Р·РІР°РЅРёРµ!\"");
 
             return false;
         }
@@ -205,25 +270,6 @@ public partial class MovieCatalogForm : Form
         MessageBox.Show(message);
     }
 
-    private void UpdateUserIdNumericUpDown(NumericUpDown userIdElement)
-    {
-        userIdElement.Maximum = Movie.NextID() - 1;
-
-        /*if (userIdElement.Maximum != 0
-            && userIdElement.Minimum != 1)
-            userIdElement.Minimum = 1;
-
-        if (movieCatalog.GetMovies().Count == 0)
-        {
-            userIdElement.Enabled = false;
-            EnableAddMovieMode();
-        }
-        else
-        {
-            userIdElement.Enabled = true;
-        }*/
-    }
-
     private void UpdateMovieIdNumericUpDown(NumericUpDown movieIdElement)
     {
         movieIdElement.Maximum = Movie.NextID() - 1;
@@ -234,11 +280,13 @@ public partial class MovieCatalogForm : Form
 
         if (movieCatalog.GetMovies().Count == 0)
         {
+            removeMovieButton.Enabled = false;
             movieIdElement.Enabled = false;
             EnableAddMovieMode();
         }
         else
         {
+            removeMovieButton.Enabled = true;
             movieIdElement.Enabled = true;
         }
     }
@@ -322,7 +370,7 @@ public partial class MovieCatalogForm : Form
         string userName = userNameTextBox.Text;
         if (!IsValidUserName(userName))
         {
-            MessageBox.Show("Имя пользователя должно начинаться с заглавной буквы и содержать только буквы.");
+            MessageBox.Show("РРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РґРѕР»Р¶РЅРѕ РЅР°С‡РёРЅР°С‚СЊСЃСЏ СЃ Р·Р°РіР»Р°РІРЅРѕР№ Р±СѓРєРІС‹ Рё СЃРѕРґРµСЂР¶Р°С‚СЊ С‚РѕР»СЊРєРѕ Р±СѓРєРІС‹.");
             userNameTextBox.Focus();
             return;
         }
@@ -345,7 +393,7 @@ public partial class MovieCatalogForm : Form
         foreach (var user in users)
         {
             bool userSubscribed = UserSubscribed(user);
-            usersInfo.Append($"{user.ToString()}, {(userSubscribed ? "подписан(а)" : "не подписан(а)")}\n");
+            usersInfo.Append($"{user.ToString()}, {(userSubscribed ? "РїРѕРґРїРёСЃР°РЅ(Р°)" : "РЅРµ РїРѕРґРїРёСЃР°РЅ(Р°)")}\n");
         }
         usersRichTextBox.Text = usersInfo.ToString().TrimEnd();
     }
