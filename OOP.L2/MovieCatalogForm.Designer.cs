@@ -149,7 +149,7 @@ partial class MovieCatalogForm
         // 
         // moviesRichTextBox
         // 
-        moviesRichTextBox.Location = new Point(404, 41);
+        moviesRichTextBox.Location = new Point(404, 132);
         moviesRichTextBox.Name = "moviesRichTextBox";
         moviesRichTextBox.ReadOnly = true;
         moviesRichTextBox.Size = new Size(364, 73);
@@ -188,7 +188,7 @@ partial class MovieCatalogForm
         // moviesLabel
         // 
         moviesLabel.AutoSize = true;
-        moviesLabel.Location = new Point(405, 14);
+        moviesLabel.Location = new Point(405, 105);
         moviesLabel.Name = "moviesLabel";
         moviesLabel.Size = new Size(82, 15);
         moviesLabel.TabIndex = 0;
@@ -198,7 +198,7 @@ partial class MovieCatalogForm
         // 
         sortComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
         sortComboBox.FormattingEnabled = true;
-        sortComboBox.Location = new Point(508, 120);
+        sortComboBox.Location = new Point(508, 211);
         sortComboBox.Name = "sortComboBox";
         sortComboBox.Size = new Size(121, 23);
         sortComboBox.TabIndex = 81;
@@ -206,7 +206,7 @@ partial class MovieCatalogForm
         // sortByLabel
         // 
         sortByLabel.AutoSize = true;
-        sortByLabel.Location = new Point(404, 123);
+        sortByLabel.Location = new Point(404, 214);
         sortByLabel.Name = "sortByLabel";
         sortByLabel.Size = new Size(98, 15);
         sortByLabel.TabIndex = 82;
@@ -214,7 +214,7 @@ partial class MovieCatalogForm
         // 
         // sortMoviesButton
         // 
-        sortMoviesButton.Location = new Point(635, 120);
+        sortMoviesButton.Location = new Point(635, 211);
         sortMoviesButton.Name = "sortMoviesButton";
         sortMoviesButton.Size = new Size(97, 23);
         sortMoviesButton.TabIndex = 83;
@@ -233,7 +233,7 @@ partial class MovieCatalogForm
         // 
         // searchResultsRichTextBox
         // 
-        searchResultsRichTextBox.Location = new Point(404, 176);
+        searchResultsRichTextBox.Location = new Point(404, 38);
         searchResultsRichTextBox.Name = "searchResultsRichTextBox";
         searchResultsRichTextBox.ReadOnly = true;
         searchResultsRichTextBox.Size = new Size(364, 52);
@@ -252,7 +252,7 @@ partial class MovieCatalogForm
         // searchResultsLabel
         // 
         searchResultsLabel.AutoSize = true;
-        searchResultsLabel.Location = new Point(404, 149);
+        searchResultsLabel.Location = new Point(404, 11);
         searchResultsLabel.Name = "searchResultsLabel";
         searchResultsLabel.Size = new Size(111, 15);
         searchResultsLabel.TabIndex = 85;

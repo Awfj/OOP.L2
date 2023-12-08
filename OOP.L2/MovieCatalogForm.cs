@@ -7,8 +7,8 @@ public partial class MovieCatalogForm : Form
 {
     private MovieCatalog movieCatalog = new();
     private List<User> users = new();
-    private Movie? movieToEdit = null;
     private User? selectedUser = null;
+    private Movie? movieToEdit = null;
 
     public MovieCatalogForm()
     {
